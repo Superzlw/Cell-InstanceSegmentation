@@ -1,0 +1,1 @@
+web: gunicorn app.test_app_w:app --preload
