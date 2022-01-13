@@ -93,7 +93,7 @@ def main():
                     processed_filename = 'processed_img.png'
                     res_df = get_prediction(cfg.CONFIG, cfg.CHECKPOINT, img,
                                              processed_filename, processed_img)
-                    res_csv = pd.to_csv(res_df)
+                    res_csv = res_df.to_csv(f'{uploaded_file.name}.csv')
                     st.image(processed_img)
                     st.download_button(label='download .csv file', data=res_csv,
                        file_name=f'{uploaded_file.name}.csv')
