@@ -6,7 +6,7 @@ Created on Thu Jan 13 13:17:19 2022
 """
 
 import gdown
-from config import cfg
+from utils.config import cfg
 import streamlit as st
 
 def download_from_google():
