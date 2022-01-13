@@ -44,3 +44,4 @@ thop
 gdown==4.2.0
 googledrivedownloader==0.4
 pyxlsb
+xlsxwriter
