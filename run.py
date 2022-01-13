@@ -15,6 +15,7 @@ from utils.config import cfg
 import gdown
 from run_model import get_prediction
 from utils.utils_func import download_from_google
+import pandas as pd
 
 ids = '1I2WrZhlF5ABDBuPXj0Yoj9KGZ_dhzNw0'
 url = f'https://drive.google.com/uc?id={ids}'
@@ -90,17 +91,9 @@ def main():
                 with st.spinner(text='Preparing Image...'):
                     processed_img = './app/static/temp_processed_imgs/processed_img.png'
                     processed_filename = 'processed_img.png'
-                    res_csv = get_prediction(cfg.CONFIG, cfg.CHECKPOINT, img,
+                    res_df = get_prediction(cfg.CONFIG, cfg.CHECKPOINT, img,
                                              processed_filename, processed_img)
-                    '''
-                    model = init_detector(cfg.CONFIG, cfg.CHECKPOINT, device='cpu')
-                    result = inference_detector(model, img)
-                    model.show_result(img, result, score_thr=0.5, show=False,
-                                win_name=processed_filename,
-                                out_file=processed_img)
-                    st.write("Text end")
-                    st.balloons()
-                    '''
+                    res_csv = pd.to_csv(res_df)
                     st.image(processed_img)
                     st.download_button(label='download .csv file', data=res_csv,
                        file_name=f'{uploaded_file.name}.csv')
