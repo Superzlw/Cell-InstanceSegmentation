@@ -25,7 +25,7 @@ def down_from_google():
     
 
 def main():
-    st.title('Streamlit Test')
+    st.title('Project Test')
     source = ("Mask RCNN", "Faster RCNN")
     
     source_index = st.sidebar.selectbox("Input", range(
@@ -48,6 +48,7 @@ def main():
         print('valid')
         if st.button("Start testing"):
             if source_index == 0:
+                down_from_google()
                 with st.spinner(text='Preparing Image'):
                     model = init_detector(config, checkpoint_path, device='cuda:0')
                     result = inference_detector(model, picture)
@@ -61,5 +62,4 @@ def main():
             else:
                 pass
 if __name__ == '__main__':
-    down_from_google()
     main()
