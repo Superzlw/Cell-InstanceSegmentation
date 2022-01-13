@@ -74,8 +74,9 @@ def main():
             is_valid = True
             with st.spinner(text = 'Image Loading...'):
                 st.sidebar.image(uploaded_file)
-                img = Image.open(uploaded_file)
-                img = img.save(f'app/static/temp_imgs/{uploaded_file.name}')
+                up_img = Image.open(uploaded_file)
+                up_img.save(f'app/static/temp_imgs/{uploaded_file.name}')
+                img = f'app/static/temp_imgs/{uploaded_file.name}'
         else:
             is_valid = False
     else:
