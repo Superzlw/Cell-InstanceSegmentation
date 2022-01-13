@@ -11,7 +11,7 @@ from mmdet.apis import inference_detector, init_detector, show_result_pyplot, sh
 import argparse
 from PIL import Image
 import streamlit as st
-from app.config import cfg
+from utils.config import cfg
 import gdown
 from run_model import get_prediction
 from utils.utils_func import download_from_google
