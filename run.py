@@ -14,7 +14,7 @@ import streamlit as st
 from utils.config import cfg
 import gdown
 from run_model import get_prediction
-from utils.utils_func import download_from_google
+from utils.utils_func import download_from_google, to_excel
 import pandas as pd
 
 ids = '1I2WrZhlF5ABDBuPXj0Yoj9KGZ_dhzNw0'
@@ -93,10 +93,10 @@ def main():
                     processed_filename = 'processed_img.png'
                     res_df = get_prediction(cfg.CONFIG, cfg.CHECKPOINT, img,
                                              processed_filename, processed_img)
-                    res_pkl = res_df.to_pickle(f'{uploaded_file.name}.csv')
+                    res_excel = to_excel(res_df)
                     st.image(processed_img)
-                    st.download_button(label='download .csv file', data=res_pkl,
-                       file_name=f'{uploaded_file.name}.csv')
+                    st.download_button(label='Download the Result', data=res_excel,
+                       file_name=f'{uploaded_file.name}.xlsx')
             else:
                 pass
 if __name__ == '__main__':

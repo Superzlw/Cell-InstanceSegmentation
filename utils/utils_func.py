@@ -8,6 +8,9 @@ Created on Thu Jan 13 13:17:19 2022
 import gdown
 from utils.config import cfg
 import streamlit as st
+from io import BytesIO
+from pyxlsb import open_workbook as open_xlsb
+import pandas as pd
 
 def download_from_google():
     try:
@@ -21,3 +24,15 @@ def download_from_google():
 def download_from_app(img_name, csv_file):
     st.download_button(label='download .csv file', data=csv_file,
                        file_name=f'{img_name}.csv')
+    
+def to_excel(df):
+    output = BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    df.to_excel(writer, index=False, sheet_name='Sheet1')
+    workbook = writer.book
+    worksheet = writer.sheets['Sheet1']
+    format1 = workbook.add_format({'num_format': '0.00'}) 
+    worksheet.set_column('A:A', None, format1)  
+    writer.save()
+    processed_data = output.getvalue()
+    return processed_data
