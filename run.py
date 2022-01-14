@@ -7,6 +7,7 @@ Created on Wed Jan 12 15:15:49 2022
 
 import requests
 from os import chdir, system, path
+import os
 from mmdet.apis import inference_detector, init_detector, show_result_pyplot, show_result_pyplot
 import argparse
 from PIL import Image
@@ -87,7 +88,8 @@ def main():
         print('valid')
         if st.button("Start testing"):
             if source_index == 0:
-                download_from_google()
+                if not 'mask_rcnn_r50_20e_compet.pth' in os.listdir('./checkpoints'):
+                    download_from_google()
                 with st.spinner(text='Preparing Image...'):
                     processed_img = './app/static/temp_processed_imgs/processed_img.png'
                     processed_filename = 'processed_img.png'
