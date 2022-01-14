@@ -19,7 +19,7 @@ _C.CONFIG = './configs/mask_rcnn/mask_rcnn_r50_fpn_compet.py'
 _C.CHECKPOINT = './checkpoints/mask_rcnn_r50_20e_compet.pth'
 
 # URL of Google Drive
-_C.IDS = '14X5b9Is_VJVb1unFQUwNfq31TTTpSQki'
+_C.IDS = '1sDUUANLST4wCZUVwnTRKwsTkJgcXJRJY'
 _C.URL = f'https://drive.google.com/uc?id={_C.IDS}'
 
 # post processing parameters
