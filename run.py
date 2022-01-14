@@ -15,7 +15,7 @@ import streamlit as st
 from utils.config import cfg
 import gdown
 from run_model import get_prediction
-from utils.utils_func import download_from_google, to_excel
+from utils.utils_func import download_from_google, to_excel, remove_files
 import pandas as pd
 
 ids = '1I2WrZhlF5ABDBuPXj0Yoj9KGZ_dhzNw0'
@@ -97,8 +97,10 @@ def main():
                                              processed_filename, processed_img)
                     res_excel = to_excel(res_df)
                     st.image(processed_img)
-                    st.download_button(label='Download the Result', data=res_excel,
+                    st.download_button(label='Download the Result(.xlxs)', data=res_excel,
                        file_name=f'{uploaded_file.name}.xlsx')
+                    remove_files('app/static/temp_imgs')
+                    remove_files('./app/static/temp_processed_imgs')
             else:
                 pass
 if __name__ == '__main__':

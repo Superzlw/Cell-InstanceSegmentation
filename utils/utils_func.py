@@ -11,6 +11,7 @@ import streamlit as st
 from io import BytesIO
 from pyxlsb import open_workbook as open_xlsb
 import pandas as pd
+import os
 
 def download_from_google():
     try:
@@ -36,3 +37,9 @@ def to_excel(df):
     writer.save()
     processed_data = output.getvalue()
     return processed_data
+
+def remove_files(folder):
+    files_lst = os.listdir(folder)
+    for file in files_lst:
+        file_path = os.path.join(folder, file)
+        os.remove(file_path)
