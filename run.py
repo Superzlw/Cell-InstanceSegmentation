@@ -30,7 +30,7 @@ def main():
         len(source)), format_func = lambda x: source[x])
     
     if source_index == 0:
-        uploaded_file = st.sidebar.file_uploader("upload Image", type=['png', 'jpg'], accept_multiple_files = True)
+        uploaded_file = st.sidebar.file_uploader("upload Image", type=['png', 'jpg'])
         if uploaded_file is not None:
             is_valid = True
             with st.spinner(text = 'Image Loading...'):
