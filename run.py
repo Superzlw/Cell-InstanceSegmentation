@@ -99,6 +99,7 @@ def main():
                     st.image(processed_img)
                     st.download_button(label='Download the Result(.xlxs)', data=res_excel,
                        file_name=f'{uploaded_file.name}.xlsx')
+                st.write('tmp')
             else:
                 pass
 if __name__ == '__main__':
