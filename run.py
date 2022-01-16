@@ -84,7 +84,7 @@ def main():
         pass
             
     if is_valid:
-        st.wirte(os.listdir('app/static/temp_imgs'))
+        st.write(os.listdir('app/static/temp_imgs'))
         print('valid')
         if st.button("Start testing"):
             if source_index == 0:
