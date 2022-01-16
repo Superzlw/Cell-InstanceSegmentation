@@ -64,6 +64,7 @@ def parse_args():
 '''  
 
 def main():
+    remove_files('app/static/temp_imgs')
     st.title('DS2-Project: Cell Instance Segmentation')
     source = ("Mask RCNN", "Demo-Faster RCNN")
     source_index = st.sidebar.selectbox("Model", range(
