@@ -23,10 +23,9 @@ url = f'https://drive.google.com/uc?id={ids}'
 checkpoint_path = './checkpoints/mask_rcnn_r50_20e_compet.pth'
 config = './configs/mask_rcnn/mask_rcnn_r50_fpn_compet.py'
 
+'''
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', nargs='+', type=str,
-                        default='weights/yolov5s.pt', help='model.pt path(s)')
     parser.add_argument('--source', type=str,
                         default='data/images', help='source')
     parser.add_argument('--img-size', type=int, default=640,
@@ -62,7 +61,7 @@ def parse_args():
     
     args = parser.parse_args()
     return args
-  
+'''  
 
 def main():
     st.title('DS2-Project: Cell Instance Segmentation')
@@ -85,6 +84,7 @@ def main():
         pass
             
     if is_valid:
+        st.wirte(os.listdir('app/static/temp_imgs'))
         print('valid')
         if st.button("Start testing"):
             if source_index == 0:

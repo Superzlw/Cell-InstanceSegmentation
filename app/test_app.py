@@ -75,7 +75,7 @@ def index():
                                      result_ttl=86400)
 
             job_id = job.get_id()
-            get_prediction(cfg.CONFIG, cfg.CHECKPOINT, (ds_path / '7ae19de7bc2a.png').as_posix())
+            #get_prediction(cfg.CONFIG, cfg.CHECKPOINT, (ds_path / '7ae19de7bc2a.png').as_posix())
             return redirect(url_for('show', picture=filename, job_id=job_id))
     else:
         return render_template('index.html', form=upload_form)
