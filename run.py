@@ -24,7 +24,8 @@ checkpoint_path = './checkpoints/mask_rcnn_r50_20e_compet.pth'
 config = './configs/mask_rcnn/mask_rcnn_r50_fpn_compet.py'
 
 def main():
-    remove_files('app/static/temp_imgs')
+    if not os.listdir('app/static/temp_imgs') == []:
+        remove_files('app/static/temp_imgs')
     st.title('DS2-Project: Cell Instance Segmentation')
     source = ("Mask RCNN", "Demo-Faster RCNN")
     source_index = st.sidebar.selectbox("Model", range(
