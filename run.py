@@ -17,6 +17,8 @@ from utils.utils_func import download_from_google, to_excel, remove_files, mkdir
 def main():
     mkdir(cfg.TEMP_ORIGNAL)
     mkdir(cfg.TEMP_PROCESSED)
+    st.write(os.listdir(cfg.TEMP_ORIGNAL))
+    st.write(os.listdir(cfg.TEMP_PROCESSED))
     remove_files(cfg.TEMP_ORIGNAL)
     remove_files(cfg.TEMP_PROCESSED)
     
