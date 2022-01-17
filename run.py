@@ -52,6 +52,7 @@ def main():
                     processed_imgs = []
                     imgs = os.listdir(cfg.TEMP_ORIGNAL)
                     for img in imgs:
+                        img = os.path.join(cfg.TEMP_ORIGNAL, img)
                         processed_filename = f'processed_{uploaded_file.name}.png'
                         processed_img = os.path.join(cfg.TEMP_PROCESSED, processed_filename)                    
                         res_df = get_prediction(cfg.CONFIG, cfg.CHECKPOINT, img,
