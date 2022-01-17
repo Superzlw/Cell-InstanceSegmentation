@@ -25,8 +25,8 @@ _C.URL = f'https://drive.google.com/uc?id={_C.IDS}'
 
 # Path for uploaded imgs and processed imgs
 _C.TEMP = 'app/static/temp_imgs'
-_C_TEMP_PROCESSED = os.path.join(_C.TEMP, 'processed_imgs')
-_C_TEMP_ORIGNAL = os.path.join(_C.TEMP, 'orignal_imgs')
+_C.TEMP_PROCESSED = os.path.join(_C.TEMP, 'processed_imgs')
+_C.TEMP_ORIGNAL = os.path.join(_C.TEMP, 'orignal_imgs')
 
 # post processing parameters
 _C.RANDOM_ORDER = False  # when true, the value of c_order does not matter
