@@ -12,9 +12,11 @@ from PIL import Image
 import streamlit as st
 from utils.config import cfg
 from run_model import get_prediction
-from utils.utils_func import download_from_google, to_excel, remove_files
+from utils.utils_func import download_from_google, to_excel, remove_files, mkdir
 
 def main():
+    mkdir(cfg.TEMP_ORIGNAL)
+    mkdir(cfg.TEMP_PROCESSED)
     remove_files(cfg.TEMP_ORIGNAL)
     remove_files(cfg.TEMP_PROCESSED)
     

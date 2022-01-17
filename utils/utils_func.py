@@ -43,3 +43,31 @@ def remove_files(folder):
     for file in files_lst:
         file_path = os.path.join(folder, file)
         os.remove(file_path)
+        
+def mkdir(path):
+    folder = os.path.exists(path)
+    if not folder:
+        os.mkdir(path)
+    else:
+        pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
