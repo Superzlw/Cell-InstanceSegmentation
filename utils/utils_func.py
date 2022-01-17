@@ -48,8 +48,6 @@ def _mkdir(path):
     folder = os.path.exists(path)
     if not folder:
         os.mkdir(path)
-    else:
-        pass
     
 def init_folder(path):
     _mkdir(path)
