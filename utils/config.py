@@ -6,6 +6,7 @@ Created on Thu Jan 13 13:18:52 2022
 """
 
 from easydict import EasyDict as edict
+import os
 
 
 _C = edict()
@@ -21,6 +22,11 @@ _C.CHECKPOINT = './checkpoints/mask_rcnn_r50_20e_compet.pth'
 # URL of Google Drive
 _C.IDS = '1sDUUANLST4wCZUVwnTRKwsTkJgcXJRJY'
 _C.URL = f'https://drive.google.com/uc?id={_C.IDS}'
+
+# Path for uploaded imgs and processed imgs
+_C.TEMP = 'app/static/temp_imgs'
+_C_TEMP_PROCESSED = os.path.join(_C.TEMP, 'processed_imgs')
+_C_TEMP_ORIGNAL = os.path.join(_C.TEMP, 'orignal_imgs')
 
 # post processing parameters
 _C.RANDOM_ORDER = False  # when true, the value of c_order does not matter
