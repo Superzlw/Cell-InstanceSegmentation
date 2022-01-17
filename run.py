@@ -26,7 +26,7 @@ def main():
         len(source)), format_func = lambda x: source[x])
     
     if source_index == 0:
-        uploaded_files = st.file_uploader("upload Image", type=['png', 'jpg'], accept_multiple_files = True)
+        uploaded_files = st.sidebar.file_uploader("upload Image", type=['png', 'jpg'], accept_multiple_files = True)
         if not uploaded_files == []:
             is_valid = True
             with st.spinner(text = 'Image Loading...'):
