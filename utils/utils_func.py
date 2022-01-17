@@ -38,18 +38,23 @@ def to_excel(df):
     processed_data = output.getvalue()
     return processed_data
 
-def remove_files(folder):
+def _remove_files(folder):
     files_lst = os.listdir(folder)
     for file in files_lst:
         file_path = os.path.join(folder, file)
         os.remove(file_path)
         
-def mkdir(path):
+def _mkdir(path):
     folder = os.path.exists(path)
     if not folder:
         os.mkdir(path)
     else:
         pass
+    
+def init_folder(path):
+    _mkdir(path)
+    _remove_files(path)
+    
 
 
 

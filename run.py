@@ -12,15 +12,11 @@ from PIL import Image
 import streamlit as st
 from utils.config import cfg
 from run_model import get_prediction
-from utils.utils_func import download_from_google, to_excel, remove_files, mkdir
+from utils.utils_func import download_from_google, to_excel, init_folder
 
 def main():
-    mkdir(cfg.TEMP_ORIGNAL)
-    mkdir(cfg.TEMP_PROCESSED)
-    st.write(os.listdir(cfg.TEMP_ORIGNAL))
-    st.write(os.listdir(cfg.TEMP_PROCESSED))
-    remove_files(cfg.TEMP_ORIGNAL)
-    remove_files(cfg.TEMP_PROCESSED)
+    init_folder(cfg.TEMP_ORIGNAL)
+    init_folder(cfg.TEMP_PROCESSED)
     
     st.title('Cell Instance Segmentation')
     source = ("Mask RCNN", "Demo-Faster RCNN")
