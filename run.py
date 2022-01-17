@@ -9,6 +9,7 @@ import requests
 import os
 import argparse
 from PIL import Image
+import pandas as pd
 import streamlit as st
 from utils.config import cfg
 from run_model import get_prediction
@@ -46,8 +47,9 @@ def main():
                 if not 'mask_rcnn_r50_20e_compet.pth' in os.listdir('./checkpoints'):
                     download_from_google()
                 with st.spinner(text='Preparing Image...'):
-                    res_df_lst = []
                     processed_imgs = []
+                    processed_filenames = []
+                    processed_filename2res = {}
                     imgs = os.listdir(cfg.TEMP_ORIGNAL)
                     for img in imgs:
                         processed_filename = f'processed_{img}.png'
@@ -55,12 +57,19 @@ def main():
                         processed_img = os.path.join(cfg.TEMP_PROCESSED, processed_filename)                    
                         res_df = get_prediction(cfg.CONFIG, cfg.CHECKPOINT, img,
                                                  processed_filename, processed_img)
-                        res_df_lst.append(res_df)
                         processed_imgs.append(processed_img)
+                        processed_filenames.append(processed_filename)
+                        processed_filename2res[processed_filename] = res_df
                     st.image(processed_imgs)
-                    res_excel = to_excel(res_df)
+                    selected_option = st.multiselect("Select one or more options:",processed_filenames.append('ALL'))
+                    if 'ALL' in selected_option:
+                        processed_filenames.remove('ALL')
+                        selected_option = processed_filenames
+                    res_lst = [processed_filename2res[selected_filename] for selected_filename in selected_option]
+                    res_out_df = pd.concat(res_lst)
+                    res_excel = to_excel(res_out_df)
                     st.download_button(label='Download the Result(.xlxs)', data=res_excel,
-                       file_name=f'{uploaded_file.name}.xlsx')
+                       file_name='result.xlsx')
             else:
                 pass
 if __name__ == '__main__':
