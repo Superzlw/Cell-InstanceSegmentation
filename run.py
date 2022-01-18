@@ -62,7 +62,9 @@ def main():
                         processed_filename2res[processed_filename] = res_df
                     st.image(processed_imgs)
                     processed_filenames.append('ALL')
-                    selected_option = st.multiselect("Select one or more options:",processed_filenames)
+                    selected_option = []
+                    while selected_option == []:
+                        selected_option = st.multiselect("Select one or more options:",processed_filenames)
                     if 'ALL' in selected_option:
                         processed_filenames.remove('ALL')
                         selected_option = processed_filenames
