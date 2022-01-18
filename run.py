@@ -41,6 +41,7 @@ def main():
             
     if is_valid:
         st.write(os.listdir(cfg.TEMP_ORIGNAL))
+        st.write(os.listdir(cfg.TEMP_PROCESSED))
         print('valid')
         if st.button("Start testing"):
             if source_index == 0:
