@@ -60,20 +60,20 @@ def main():
                         processed_imgs.append(processed_img)
                         processed_filenames.append(processed_filename)
                         processed_filename2res[processed_filename] = res_df
-                    st.image(processed_imgs)
-                    processed_filenames.append('ALL')
-                    selected_option = []
-                    selected_option = st.multiselect("Select one or more options:",processed_filenames)
-                    if 'ALL' in selected_option:
-                        processed_filenames.remove('ALL')
-                        selected_option = processed_filenames
-                    if not selected_option == []:
-                        res_lst = [processed_filename2res[selected_filename] for selected_filename in selected_option]
-                        res_out_df = pd.concat(res_lst)
-                        res_excel = to_excel(res_out_df)
-                        if not res_lst == []:
-                            st.download_button(label='Download the Result(.xlxs)', data=res_excel,
-                               file_name='result.xlsx')
+                st.image(processed_imgs)
+                processed_filenames.append('ALL')
+                selected_option = []
+                selected_option = st.multiselect("Select one or more options:",processed_filenames)
+                if 'ALL' in selected_option:
+                    processed_filenames.remove('ALL')
+                    selected_option = processed_filenames
+                if not selected_option == []:
+                    res_lst = [processed_filename2res[selected_filename] for selected_filename in selected_option]
+                    res_out_df = pd.concat(res_lst)
+                    res_excel = to_excel(res_out_df)
+                    if not res_lst == []:
+                        st.download_button(label='Download the Result(.xlxs)', data=res_excel,
+                           file_name='result.xlsx')
             else:
                 pass
 if __name__ == '__main__':
