@@ -48,7 +48,7 @@ def main():
                     download_from_google()
                 with st.spinner(text='Preparing Image...'):
                     processed_imgs = []
-                    processed_filenames = []
+                    processed_filenames = ['ALL']
                     processed_filename2res = {}
                     imgs = os.listdir(cfg.TEMP_ORIGNAL)
                     for img in imgs:
@@ -60,20 +60,19 @@ def main():
                         processed_imgs.append(processed_img)
                         processed_filenames.append(processed_filename)
                         processed_filename2res[processed_filename] = res_df
-                st.image(processed_imgs)
-                processed_filenames.append('ALL')
-                selected_option = []
-                selected_option = st.multiselect("Select one or more options:",processed_filenames)
-                if 'ALL' in selected_option:
-                    processed_filenames.remove('ALL')
-                    selected_option = processed_filenames
-                if not selected_option == []:
+                        st.image(processed_imgs)
+                with st.form(key='Select Image(s)'):
+                    selected_option = st.multiselect("Select one or more options:",processed_filenames)
+                    submit_button = st.form_submit_button(label='Submit')
+                if submit_button:
+                    if 'ALL' in selected_option:
+                        processed_filenames.remove('ALL')
+                        selected_option = processed_filenames
                     res_lst = [processed_filename2res[selected_filename] for selected_filename in selected_option]
                     res_out_df = pd.concat(res_lst)
                     res_excel = to_excel(res_out_df)
-                    if not res_lst == []:
-                        st.download_button(label='Download the Result(.xlxs)', data=res_excel,
-                           file_name='result.xlsx')
+                    st.download_button(label='Download the Result(.xlxs)', data=res_excel,
+                       file_name='result.xlsx')
             else:
                 pass
 if __name__ == '__main__':
