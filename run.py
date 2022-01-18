@@ -71,7 +71,7 @@ def main():
                         res_lst = [processed_filename2res[selected_filename] for selected_filename in selected_option]
                         res_out_df = pd.concat(res_lst)
                         res_excel = to_excel(res_out_df)
-                        st.download_button(label='Download the Result(.xlxs)', data=res_excel,
+                    st.download_button(label='Download the Result(.xlxs)', data=res_excel,
                            file_name='result.xlsx')
             else:
                 pass
