@@ -41,7 +41,6 @@ def main():
             
     if is_valid:
         st.write(os.listdir(cfg.TEMP_ORIGNAL))
-        st.write(os.listdir(cfg.TEMP_PROCESSED))
         print('valid')
         if st.button("Start testing"):
             if source_index == 0:
@@ -72,8 +71,8 @@ def main():
                     res_lst = [processed_filename2res[selected_filename] for selected_filename in selected_option]
                     res_out_df = pd.concat(res_lst)
                     res_excel = to_excel(res_out_df)
-                st.download_button(label='Download the Result(.xlxs)', data=res_excel,
-                   file_name='result.xlsx')
+                    st.download_button(label='Download the Result(.xlxs)', data=res_excel,
+                       file_name='result.xlsx')
             else:
                 pass
 if __name__ == '__main__':
