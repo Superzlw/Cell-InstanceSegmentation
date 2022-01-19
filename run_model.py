@@ -173,7 +173,7 @@ def get_prediction(config, checkpoint, test_imgs,
         if vis_result:
             # TODO: this is a temporary result in terms of visualization, since it does not consider the post processing below.
             print('last_2')
-            model.show_result(test_img, value, score_thr=0.5, show=False,
+            model.show_result(test_img, value, score_thr=0.3, show=False,
                               win_name=processed_filename,
                               out_file=processed_img)
             print('what i want')
