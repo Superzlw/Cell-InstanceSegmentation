@@ -15,16 +15,15 @@ from utils.config import cfg
 from run_model import get_prediction
 from utils.utils_func import download_from_google, to_excel, init_folder
 
-def main():
-    init_folder(cfg.TEMP_ORIGNAL)
-    init_folder(cfg.TEMP_PROCESSED)
-    
+def main():   
     st.title('Cell Instance Segmentation')
     source = ("Mask RCNN", "Demo-Faster RCNN")
     source_index = st.sidebar.selectbox("Model", range(
         len(source)), format_func = lambda x: source[x])
     
     if source_index == 0:
+        init_folder(cfg.TEMP_ORIGNAL)
+        init_folder(cfg.TEMP_PROCESSED)
         uploaded_files = st.sidebar.file_uploader("upload Image", type=['png', 'jpg'], accept_multiple_files = True)
         if not uploaded_files == []:
             is_valid = True
@@ -62,6 +61,7 @@ def main():
                         processed_filename2res[processed_filename] = res_df
                         st.image(processed_imgs)
                 with st.form(key='Select Image(s)'):
+                    st.write(os.listdir(cfg.TEMP_PROCESSED))
                     selected_option = st.multiselect("Select one or more options:",processed_filenames)
                     submit_button = st.form_submit_button(label='Submit')
                 if submit_button:
