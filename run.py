@@ -13,7 +13,7 @@ import pandas as pd
 import streamlit as st
 from utils.config import cfg
 from run_model import get_prediction
-from utils.utils_func import download_from_google, to_excel, init_folder
+from utils.utils_func import download_from_google, to_excel, init_folder, downlaod_result
 
 def main():   
     st.title('Cell Instance Segmentation')
@@ -63,16 +63,7 @@ def main():
                 with st.form(key='Select Image(s)'):
                     st.write(os.listdir(cfg.TEMP_PROCESSED))
                     selected_option = st.multiselect("Select one or more options:",processed_filenames)
-                    submit_button = st.form_submit_button(label='Submit')
-                if submit_button:
-                    if 'ALL' in selected_option:
-                        processed_filenames.remove('ALL')
-                        selected_option = processed_filenames
-                    res_lst = [processed_filename2res[selected_filename] for selected_filename in selected_option]
-                    res_out_df = pd.concat(res_lst)
-                    res_excel = to_excel(res_out_df)
-                    st.download_button(label='Download the Result(.xlxs)', data=res_excel,
-                       file_name='result.xlsx')
+                    submit_button = st.form_submit_button(label='Submit', on_click=downlaod_result(processed_filename2res, processed_filenames, selected_option))
             else:
                 pass
 if __name__ == '__main__':

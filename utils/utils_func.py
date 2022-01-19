@@ -53,6 +53,16 @@ def init_folder(path):
     _mkdir(path)
     _remove_files(path)
     
+def downlaod_result(processed_filename2res, processed_filenames, selected_option):
+    if 'ALL' in selected_option:
+        processed_filenames.remove('ALL')
+        selected_option = processed_filenames
+    res_lst = [processed_filename2res[selected_filename] for selected_filename in selected_option]
+    res_out_df = pd.concat(res_lst)
+    res_excel = to_excel(res_out_df)
+    st.download_button(label='Download the Result(.xlxs)', data=res_excel,
+       file_name='result.xlsx')
+    
 
 
 
