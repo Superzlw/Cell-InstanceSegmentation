@@ -143,7 +143,7 @@ def create_pred_result(model, test_imgs):
         name_id = os.path.basename(test_img).split('.')[0]
         yield test_img, name_id, result
 
-@st.cache
+# @st.cache
 def get_prediction(config, checkpoint, test_imgs,
                    processed_filename, processed_img,
                    random_order=False, c_order=True, vis_result=True):

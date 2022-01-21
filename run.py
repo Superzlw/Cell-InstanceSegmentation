@@ -22,8 +22,8 @@ def main():
         len(source)), format_func = lambda x: source[x])
     #st.write(os.listdir(cfg.TEMP_ORIGNAL))
     if source_index == 0:
-        #init_folder(cfg.TEMP_ORIGNAL)
-        #init_folder(cfg.TEMP_PROCESSED)
+        init_folder(cfg.TEMP_ORIGNAL)
+        init_folder(cfg.TEMP_PROCESSED)
         uploaded_files = st.sidebar.file_uploader("upload Image", type=['png', 'jpg'], accept_multiple_files = True)
         if not uploaded_files == []:
             is_valid = True
