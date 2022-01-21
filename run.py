@@ -46,9 +46,10 @@ def main():
             if source_index == 0:
                 if not 'mask_rcnn_r50_20e_compet.pth' in os.listdir('./checkpoints'):
                     download_from_google()
+                model = init_model(cfg.CONFIG, cfg.CHECKPOINT)
                 with st.spinner(text='Preparing Image...'):
                     processed_imgs = []
-                    model = init_model(cfg.CONFIG, cfg.CHECKPOINT)
+                    
                     processed_filenames = ['ALL']
                     processed_filename2res = {}
                     imgs = os.listdir(cfg.TEMP_ORIGNAL)
