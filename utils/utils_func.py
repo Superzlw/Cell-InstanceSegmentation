@@ -12,6 +12,7 @@ from io import BytesIO
 from pyxlsb import open_workbook as open_xlsb
 import pandas as pd
 import os
+import shutil
 
 def download_from_google():
     try:
@@ -60,8 +61,25 @@ def downlaod_result(processed_filename2res, processed_filenames, selected_option
     res_lst = [processed_filename2res[selected_filename] for selected_filename in selected_option]
     res_out_df = pd.concat(res_lst)
     res_excel = to_excel(res_out_df)
+    st.error("可以")
     st.download_button(label='Download the Result(.xlxs)', data=res_excel,
        file_name='result.xlsx')
+    
+def zipFiles():
+    target = os.path.join(cfg.TEMP, 'download/result')
+    orignal = os.path.join(cfg.TEMP, 'download')
+    shutil.make_archive(target, 'zip', orignal)
+    
+def save4download(imgs_lst):
+    download_path = os.path.join(cfg.TEMP, 'download')
+    init_folder(download_path)
+    for img in imgs_lst:
+        old = os.path.join(cfg.TEMP_PROCESSED, img)
+        new = os.path.join(download_path, img)
+        shutil.copyfile(old, new)
+        
+        
+    
     
 
 

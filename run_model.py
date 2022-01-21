@@ -51,6 +51,7 @@ import mmcv
 import cv2
 from mmdet.apis import inference_detector, init_detector, show_result_pyplot
 from app.config import cfg  # since app is the base package
+import streamlit as st
 
 
 # msk_lst: list of numpy arrays of shape (520,704)
@@ -142,6 +143,7 @@ def create_pred_result(model, test_imgs):
         name_id = os.path.basename(test_img).split('.')[0]
         yield test_img, name_id, result
 
+@st.cache
 def get_prediction(config, checkpoint, test_imgs,
                    processed_filename, processed_img,
                    random_order=False, c_order=True, vis_result=True):
@@ -173,7 +175,7 @@ def get_prediction(config, checkpoint, test_imgs,
         if vis_result:
             # TODO: this is a temporary result in terms of visualization, since it does not consider the post processing below.
             print('last_2')
-            model.show_result(test_img, value, score_thr=0.3, show=False,
+            model.show_result(test_img, value, score_thr=0.55, show=False,# ###
                               win_name=processed_filename,
                               out_file=processed_img)
             print('what i want')
