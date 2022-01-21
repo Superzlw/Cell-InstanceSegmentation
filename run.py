@@ -12,8 +12,9 @@ from PIL import Image
 import pandas as pd
 import streamlit as st
 from utils.config import cfg
-from run_model import get_prediction
+#from run_model import get_prediction
 from utils.utils_func import download_from_google, to_excel, init_folder, downlaod_result, zipFiles, save4download
+from Models.run_model import init_model, inference
 
 def main():   
     st.title('Cell Instance Segmentation')
@@ -47,6 +48,7 @@ def main():
                     download_from_google()
                 with st.spinner(text='Preparing Image...'):
                     processed_imgs = []
+                    model = init_model(cfg.CONFIG, cfg.CHECKPOINT)
                     processed_filenames = ['ALL']
                     processed_filename2res = {}
                     imgs = os.listdir(cfg.TEMP_ORIGNAL)
@@ -54,12 +56,13 @@ def main():
                     for img in uploaded_files:
                         processed_filename = f'processed_{img.name}'
                         img = os.path.join(cfg.TEMP_ORIGNAL, img.name)
-                        processed_img = os.path.join(cfg.TEMP_PROCESSED, processed_filename)                    
-                        res_df = get_prediction(cfg.CONFIG, cfg.CHECKPOINT, img,
-                                                 processed_filename, processed_img)
+                        processed_img = os.path.join(cfg.TEMP_PROCESSED, processed_filename)
+                        inference(model, img, processed_filename, processed_img)
+                        #res_df = get_prediction(cfg.CONFIG, cfg.CHECKPOINT, img,
+                        #                         processed_filename, processed_img)
                         processed_imgs.append(processed_img)
                         processed_filenames.append(processed_filename)
-                        processed_filename2res[processed_filename] = res_df
+                        #processed_filename2res[processed_filename] = res_df
                 st.image(processed_imgs)
                 #with st.form(key='Select Image(s)'):
                     #st.write(os.listdir(cfg.TEMP_PROCESSED))
