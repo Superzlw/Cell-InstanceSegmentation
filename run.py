@@ -59,11 +59,13 @@ def main():
                         processed_imgs.append(processed_img)
                         processed_filenames.append(processed_filename)
                         processed_filename2res[processed_filename] = res_df
-                        st.image(processed_imgs)
+                    st.image(processed_imgs)
                 with st.form(key='Select Image(s)'):
                     st.write(os.listdir(cfg.TEMP_PROCESSED))
                     selected_option = st.multiselect("Select one or more options:",processed_filenames)
-                    submit_button = st.form_submit_button(label='Submit', on_click=downlaod_result(processed_filename2res, processed_filenames, selected_option))
+                    submit_button = st.form_submit_button(label='Submit')
+                if submit_button:
+                    downlaod_result(processed_filename2res, processed_filenames, selected_option)
             else:
                 pass
 if __name__ == '__main__':
