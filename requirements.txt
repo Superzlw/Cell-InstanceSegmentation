@@ -1,6 +1,6 @@
 -f https://download.pytorch.org/whl/torch_stable.html
-torch==1.8.0+cu111
-torchvision==0.9.0+cu111
+torch==1.8.0+cpu
+torchvision==0.9.0+cpu
 torchaudio==0.8.0
 click==7.0.0
 Cython==0.29.26
@@ -15,7 +15,7 @@ gunicorn==20.1.0
 itsdangerous==2.0.1
 Jinja2==3.0.3
 MarkupSafe==2.0.1
--f https://download.openmmlab.com/mmcv/dist/cu111/torch1.8.0/index.html
+-f https://download.openmmlab.com/mmcv/dist/cpu/torch1.8.0/index.html
 mmcv-full
 numpy==1.21.5
 pandas
@@ -44,4 +44,3 @@ thop
 gdown==4.2.0
 googledrivedownloader==0.4
 pyxlsb
-xlsxwriter
