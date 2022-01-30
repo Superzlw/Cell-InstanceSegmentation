@@ -15,13 +15,16 @@ import os
 import shutil
 
 def download_from_google():
+    """
+    download the checkpoint-file from google drive
+    """
     try:
         with st.spinner(text='downing model...'):
             gdown.download(cfg.URL, cfg.CHECKPOINT, quiet=True)
     except Exception:
-        st.error('Something wrong while downloading the checkpoint-file')
+        st.error('Something wrong while downloading the checkpoint file')
     else:
-        print("finish")
+        print("downloading the checkpoint file: finish")
     
 def download_from_app(img_name, csv_file):
     st.download_button(label='download .csv file', data=csv_file,
@@ -66,17 +69,30 @@ def downlaod_result(processed_filename2res, processed_filenames, selected_option
        file_name='result.xlsx')
     
 def zipFiles():
-    target = os.path.join(cfg.TEMP, 'download/result')
+    """
+    Copy the images(processed images and mask images) to be downloaded to a specific folder
+    """
+    target = os.path.join(cfg.TEMP, 'result')
+    init_folder(target)
     orignal = os.path.join(cfg.TEMP, 'download')
     shutil.make_archive(target, 'zip', orignal)
     
 def save4download(imgs_lst):
+    """
+    Copy the images(processed images and mask images) to be downloaded to a specific folder
+    :param imgs_lst: list list of images, it contains processed images with labels
+    """
     download_path = os.path.join(cfg.TEMP, 'download')
     init_folder(download_path)
-    for img in imgs_lst:
-        old = os.path.join(cfg.TEMP_PROCESSED, img)
-        new = os.path.join(download_path, img)
-        shutil.copyfile(old, new)
+    print(imgs_lst)
+    if not imgs_lst == []:
+        for img in imgs_lst:
+            old_label = os.path.join(cfg.TEMP_PROCESSED, img)
+            old_mask = os.path.join(cfg.TEMP_PROCESSED, f'mask_{img}')
+            new_label = os.path.join(download_path, img)
+            new_mask = os.path.join(download_path, f'mask_{img}')
+            shutil.copyfile(old_label, new_label)
+            shutil.copyfile(old_mask, new_mask)
         
         
     

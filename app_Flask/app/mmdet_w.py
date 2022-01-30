@@ -6,6 +6,7 @@ Created on Mon Jan 10 17:18:08 2022
 """
 
 import requests
+import os
 from os import chdir, system, path
 from mmdet.apis import inference_detector, init_detector, show_result_pyplot, show_result_pyplot
 
@@ -20,3 +21,9 @@ def run_model(config, checkpoint, test_imgs,
                 win_name=processed_filename,
                 out_file=processed_img) 
     print("end_inf")
+    
+def create_pred_result(model, test_imgs):
+    for test_img in test_imgs:
+        result = inference_detector(model, test_img)
+        name_id = os.path.basename(test_img).split('.')[0]
+        yield name_id, result
