@@ -16,7 +16,7 @@ For details(relevant data and code) on training, evaluation and prediction see t
 
   base on Anchor free Architecture using SH-SY5Y dataset.
 
-  Download:  [config][https://github.com/sartorius-research/LIVECell/blob/main/model/anchor_free/shsy5y_config.yaml], [model][https://livecell-dataset.s3.eu-central-1.amazonaws.com/LIVECell_dataset_2021/models/Anchor_free/SHSY5Y/LIVECell_anchor_free_shsy5y_model.pth].
+  Download:  [config](https://github.com/sartorius-research/LIVECell/blob/main/model/anchor_free/shsy5y_config.yaml), [model][https://livecell-dataset.s3.eu-central-1.amazonaws.com/LIVECell_dataset_2021/models/Anchor_free/SHSY5Y/LIVECell_anchor_free_shsy5y_model.pth].
 
 * **Training model and configs**
 
