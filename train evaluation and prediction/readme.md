@@ -22,11 +22,11 @@ For details(relevant data and code) on training, evaluation and prediction see t
 
   centermask2-lite-V-39-eSE-FPN-ms-4x
 
-* **Iteration: **15000
+* **Iteration**: 15000
 
-* **Training run time:** 4 hours and 24 mins
+* **Training run time**: 4 hours and 24 mins
 
-* **GPU: **Tesla P100-PCIE-16GB (arch=6.0)
+* **GPU**: Tesla P100-PCIE-16GB (arch=6.0)
 
 ### Version 3
 
@@ -40,11 +40,11 @@ For details(relevant data and code) on training, evaluation and prediction see t
 
   centermask2-lite-V-39-eSE-FPN-ms-4x
 
-* **Iteration: **7000
+* **Iteration**: 7000
 
-* **Training run time:** 3 hours and 53 mins
+* **Training run time**:  3 hours and 53 mins
 
-* **GPU: **Tesla P100-PCIE-16GB (arch=6.0)
+* **GPU**: Tesla P100-PCIE-16GB (arch=6.0)
 
 ### Version 2
 
@@ -56,11 +56,11 @@ For details(relevant data and code) on training, evaluation and prediction see t
 
   centermask2-lite-V-39-eSE-FPN-ms-4x
 
-* **Iteration: **10000. From checkpoint (Iterations==14000) of version 1 to iteration==24000
+* **Iteration**: 10000. From checkpoint (Iterations==14000) of version 1 to iteration==24000
 
-* **Training run time:** 5 hours and 35 mins
+* **Training run time**:  5 hours and 35 mins
 
-* **GPU: **Tesla P100-PCIE-16GB (arch=6.0)
+* **GPU**: Tesla P100-PCIE-16GB (arch=6.0)
 
 ### Version 1
 
@@ -72,11 +72,11 @@ For details(relevant data and code) on training, evaluation and prediction see t
 
   centermask2-lite-V-39-eSE-FPN-ms-4x
 
-* **Iteration: **14000. 
+* **Iteration**: 14000. 
 
-* **Training run time:** 8 hours
+* **Training run time**:  8 hours
 
-* **GPU: **Tesla P100-PCIE-16GB (arch=6.0)
+* **GPU**: Tesla P100-PCIE-16GB (arch=6.0)
 
 ### Version 0
 
@@ -88,11 +88,11 @@ For details(relevant data and code) on training, evaluation and prediction see t
 
   centermask_lite_V_39_eSE_FPN_ms_4x
 
-* **Iteration: **12000. 
+* **Iteration**: 12000. 
 
-* **Training run time:** 6 hours 24 mins
+* **Training run time**:  6 hours 24 mins
 
-* **GPU: **Tesla P100-PCIE-16GB (arch=6.0)
+* **GPU**: Tesla P100-PCIE-16GB (arch=6.0)
 
 ## Online training
 
