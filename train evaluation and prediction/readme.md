@@ -104,8 +104,8 @@ For details(relevant data and code) on training, evaluation and prediction see t
 
   centermask-lite-V-19-eSE-slim-FPN-ms-4x
 
-* **Iteration: **14000. 
+* **Iteration**: 14000. 
 
-* **Training run time:** 6 hours 38 mins
+* **Training run time**:  6 hours 38 mins
 
-* **GPU: **Tesla P100-PCIE-16GB (arch=6.0)
+* **GPU**: Tesla P100-PCIE-16GB (arch=6.0)
