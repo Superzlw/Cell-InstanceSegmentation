@@ -14,17 +14,17 @@ cfg = _C
 
 # Set the config path relative to the main.py
 #_C.CONFIG = '../configs/mask_rcnn/mask_rcnn_r50_fpn_compet.py'
-_C.CONFIG = '../configs/mask_rcnn/mask_rcnn_r50_fpn_compet.py'
+_C.CONFIG = './configs/mask_rcnn/mask_rcnn_r50_fpn_compet.py'
 # Set the path to the candidate checkpoint relative to the main.py
 #_C.CHECKPOINT = '../checkpoints/mask_rcnn_r50_fpn_20e_compet_epoch_10.pth'
-_C.CHECKPOINT = '../checkpoints/mask_rcnn_r50_20e_compet.pth'
+_C.CHECKPOINT = './checkpoints/mask_rcnn_r50_20e_compet.pth'
 
 # URL of Google Drive
 _C.IDS = '1sDUUANLST4wCZUVwnTRKwsTkJgcXJRJY'
 _C.URL = f'https://drive.google.com/uc?id={_C.IDS}'
 
 # Path for uploaded imgs and processed imgs
-_C.TEMP = 'static/temp_imgs'
+_C.TEMP = 'app_Streamlit/static/temp_imgs'
 _C.TEMP_PROCESSED = os.path.join(_C.TEMP, 'processed_imgs')
 _C.TEMP_ORIGNAL = os.path.join(_C.TEMP, 'orignal_imgs')
 
