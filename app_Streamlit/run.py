@@ -63,7 +63,7 @@ def main():
         processed_filenames = ['ALL']
         if st.button("Start testing"):
             if source_index == 0:
-                if not 'mask_rcnn_r50_20e_compet.pth' in os.listdir('../checkpoints'):
+                if not 'mask_rcnn_r50_20e_compet.pth' in os.listdir('./checkpoints'):
                     download_from_google()
                 model = Models.m_rcnn.init_model(cfg.CONFIG, cfg.CHECKPOINT)
                 with st.spinner(text='Preparing Image...'):
