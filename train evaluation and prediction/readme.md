@@ -22,7 +22,7 @@ For details(relevant data and code) on training, evaluation and prediction see t
 
   centermask2-lite-V-39-eSE-FPN-ms-4x
 
-* **Iteration**: 15000
+* **Iteration**: 8000. From checkpoint (Iterations==7000) of version 3 to iteration==15000
 
 * **Training run time**: 4 hours and 24 mins
 
