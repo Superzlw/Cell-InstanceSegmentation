@@ -27,17 +27,17 @@ from app_Streamlit.utils.config import cfg
 import streamlit as st
 import time
 
-@st.cache(allow_output_mutation=True)
+@st.cache(persist=True)
 def init_model(config, checkpoint):
     model = init_detector(config, checkpoint, device='cpu')
     return model
-
+@st.cache
 def tmp_inference(model, test_imgs, processed_filename, processed_img):
     result = inference_detector(model, test_imgs)
     model.show_result(test_imgs, result, score_thr=0.5, show=False,
                 win_name=processed_filename,
                 out_file=processed_img)
-    
+@st.cache   
 def create_pred_result(model, test_imgs):
     for test_img in test_imgs:
         result = inference_detector(model, test_img)

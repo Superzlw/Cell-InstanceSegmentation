@@ -15,8 +15,19 @@ from utils.config import cfg
 #from run_model import get_prediction
 from utils.utils_func import download_from_google, to_excel, init_folder, downlaod_result, zipFiles, save4download
 import sys 
-sys.path.append("..") 
-from Models.m_rcnn import init_model, inference, show_image
+#sys.path.append("..")
+import os,sys,inspect
+current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parent_dir = os.path.dirname(current_dir)
+sys.path.insert(0, parent_dir)
+import Models
+#from Models.m_rcnn import init_model, inference, show_image
+from mmdet.apis import inference_detector, init_detector, show_result_pyplot
+
+@st.cache(persist=True)
+def test_inf(model, img):
+    values = inference_detector(model, img)
+    return values
 
 def main():   
     st.title('cell instance segmentor')
@@ -54,7 +65,7 @@ def main():
             if source_index == 0:
                 if not 'mask_rcnn_r50_20e_compet.pth' in os.listdir('../checkpoints'):
                     download_from_google()
-                model = init_model(cfg.CONFIG, cfg.CHECKPOINT)
+                model = Models.m_rcnn.init_model(cfg.CONFIG, cfg.CHECKPOINT)
                 with st.spinner(text='Preparing Image...'):
                     processed_imgs = []
                                         
@@ -65,8 +76,8 @@ def main():
                         processed_filename = f'processed_{img.name}'
                         img = os.path.join(cfg.TEMP_ORIGNAL, img.name)
                         processed_img = os.path.join(cfg.TEMP_PROCESSED, processed_filename)
-                        values = inference(model, img)
-                        show_image(model, img,values, processed_filename, processed_img, thr)
+                        values = test_inf(model, img)
+                        Models.m_rcnn.show_image(model, img,values, processed_filename, processed_img, thr)
                         #res_df = get_prediction(cfg.CONFIG, cfg.CHECKPOINT, img,
                         #                         processed_filename, processed_img)
                         processed_imgs.append(processed_img)
