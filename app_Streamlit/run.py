@@ -34,7 +34,6 @@ def main():
     source = ("Mask RCNN", "Demo-Faster RCNN")
     source_index = st.sidebar.selectbox("Model", range(
         len(source)), format_func = lambda x: source[x])
-    #st.write(os.listdir(cfg.TEMP_ORIGNAL))
     thr = st.sidebar.slider('Threshold', 0., 1., 0.5, 0.05)
     if source_index == 0:
         #init_folder(cfg.TEMP_ORIGNAL)
@@ -65,7 +64,7 @@ def main():
             if source_index == 0:
                 if not 'mask_rcnn_r50_20e_compet.pth' in os.listdir('./checkpoints'):
                     download_from_google()
-                model = init_model(cfg.CONFIG, cfg.CHECKPOINT)
+                #model = init_model(cfg.CONFIG, cfg.CHECKPOINT)
                 with st.spinner(text='Preparing Image...'):
                     processed_imgs = []
                                         
@@ -76,8 +75,9 @@ def main():
                         processed_filename = f'processed_{img.name}'
                         img = os.path.join(cfg.TEMP_ORIGNAL, img.name)
                         processed_img = os.path.join(cfg.TEMP_PROCESSED, processed_filename)
-                        values = test_inf(model, img)
-                        show_image(model, img,values, processed_filename, processed_img, thr)
+                        #values = test_inf(model, img)
+                        values = inference(cfg.CONFIG, cfg.CHECKPOINT, img)
+                        show_image(cfg.CONFIG, cfg.CHECKPOINT, img,values, processed_filename, processed_img, thr)
                         #res_df = get_prediction(cfg.CONFIG, cfg.CHECKPOINT, img,
                         #                         processed_filename, processed_img)
                         processed_imgs.append(processed_img)

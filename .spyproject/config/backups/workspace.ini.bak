@@ -4,7 +4,7 @@ save_data_on_exit = True
 save_history = True
 save_non_project_files = False
 project_type = 'empty-project-type'
-recent_files = ['app\\mmdet_w.py', 'run.py', 'utils\\utils_func.py', 'run_model.py', 'Models\\run_model.py']
+recent_files = ['Models\\m_rcnn.py', 'app_Streamlit\\run.py', 'app_Streamlit\\utils\\config.py', 'app_Streamlit\\utils\\utils_func.py']
 
 [main]
 version = 0.2.0
