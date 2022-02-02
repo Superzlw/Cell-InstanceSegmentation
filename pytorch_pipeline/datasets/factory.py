@@ -9,9 +9,9 @@
 
 __sets = {}
 
-from cell_is.datasets.coco import coco
-from cell_is.datasets.livecell import livecell
-from cell_is.datasets.competition import competition
+from pytorch_pipeline.datasets.coco import coco
+from pytorch_pipeline.datasets.livecell import livecell
+from pytorch_pipeline.datasets.competition import competition
 
 import numpy as np
 

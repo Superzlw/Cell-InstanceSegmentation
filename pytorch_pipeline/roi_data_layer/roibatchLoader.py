@@ -7,9 +7,9 @@ from PIL import Image
 import torch
 from torch.utils.data.sampler import Sampler
 
-from cell_is.model.utils.config import cfg
-from cell_is.roi_data_layer.minibatch import get_minibatch
-from cell_is.model.rpn.bbox_transform import bbox_transform_inv, clip_boxes
+from pytorch_pipeline.model.utils.config import cfg
+from pytorch_pipeline.roi_data_layer.minibatch import get_minibatch
+from pytorch_pipeline.model.rpn.bbox_transform import bbox_transform_inv, clip_boxes
 
 import numpy as np
 import random

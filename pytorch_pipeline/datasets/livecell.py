@@ -4,10 +4,10 @@
 # Written by Ross Girshick and Xinlei Chen
 # --------------------------------------------------------
 
-from cell_is.datasets import imdb as newimdb
-from cell_is.datasets.imdb import imdb
-from cell_is.datasets import ds_utils as ds_utils
-from cell_is.model.utils.config import cfg
+from pytorch_pipeline.datasets import imdb as newimdb
+from pytorch_pipeline.datasets.imdb import imdb
+from pytorch_pipeline.datasets import ds_utils as ds_utils
+from pytorch_pipeline.model.utils.config import cfg
 import os.path as osp
 import sys
 import os
@@ -18,9 +18,9 @@ import pickle
 import json
 import uuid
 # COCO API
-from cell_is.pycocotools.coco import COCO
-from cell_is.pycocotools.cocoeval import COCOeval
-from cell_is.pycocotools import mask as COCOmask
+from pytorch_pipeline.pycocotools.coco import COCO
+from pytorch_pipeline.pycocotools.cocoeval import COCOeval
+from pytorch_pipeline.pycocotools import mask as COCOmask
 
 class livecell(imdb):
   def __init__(self, image_set, genre):

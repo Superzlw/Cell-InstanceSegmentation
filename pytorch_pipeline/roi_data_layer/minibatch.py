@@ -13,8 +13,8 @@ import numpy.random as npr
 import cv2
 import scipy
 import warnings
-from cell_is.model.utils.config import cfg
-from cell_is.model.utils.blob import prep_im_for_blob, im_list_to_blob
+from pytorch_pipeline.model.utils.config import cfg
+from pytorch_pipeline.model.utils.blob import prep_im_for_blob, im_list_to_blob
 import pdb
 
 

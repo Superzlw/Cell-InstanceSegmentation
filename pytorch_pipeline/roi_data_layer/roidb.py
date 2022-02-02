@@ -1,9 +1,9 @@
 """Transform a roidb into a trainable roidb by adding a bunch of metadata."""
 
-from cell_is import datasets
+from pytorch_pipeline import datasets
 import numpy as np
-from cell_is.model.utils.config import cfg
-from cell_is.datasets.factory import get_imdb
+from pytorch_pipeline.model.utils.config import cfg
+from pytorch_pipeline.datasets.factory import get_imdb
 import PIL
 import pdb
 

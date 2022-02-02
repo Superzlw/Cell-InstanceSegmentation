@@ -7,8 +7,8 @@ import scipy
 import colorsys
 import random
 import torchvision.models as models
-from cell_is.model.utils.config import cfg
-from cell_is.model.roi_crop.functions.roi_crop import RoICropFunction
+from pytorch_pipeline.model.utils.config import cfg
+from pytorch_pipeline.model.roi_crop.functions.roi_crop import RoICropFunction
 import cv2
 import pdb
 

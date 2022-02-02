@@ -1,4 +1,4 @@
-# Note for cell_is package
+# Note for pytorch_pipeline package
 
 ## pycocotools module
 Since LIVECell dataset has its own speciality other than coco dataset, which can be found in its annotation metadata, 
