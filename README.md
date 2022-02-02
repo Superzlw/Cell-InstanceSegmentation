@@ -4,36 +4,37 @@ This repo contains everything from the Data Science2 project, i.e. Cell Instance
 ## Folders
 In addition to the relevant folders mentioned above, referenced papers and Canvas files are also included here.
 
-*`analytics`: It contains files related to data analysis (on Live-Cell dataset and Competition dataset) in the format of `.ipynb`
+* `analytics`: It contains files related to data analysis (on Live-Cell dataset and Competition dataset) in the format of `.ipynb`
 
-*`app_Flask`: Here are the relevant files for deploying the model to Heroku based on Flask.
+* `app_Flask`: Here are the relevant files for deploying the model to Heroku based on Flask.
 
-	*'app'
+	* 'app'
 
-		*'static': This folder is used to save temporary images, including uploaded images, processed images, and images that need to be downloaded.
+		* 'static': This folder is used to save temporary images, including uploaded images, processed images, and images that need to be downloaded.
 
-		*`templates`: Here are the codes of different web pages saved.
+		* `templates`: Here are the codes of different web pages saved.
 
-*`app_Streamlit`: Here are the relevant files for deploying the model to Streamlit-cloud based on streamlit.
+* `app_Streamlit`: Here are the relevant files for deploying the model to Streamlit-cloud based on streamlit.
 
-	*`static`: This folder is used to save temporary images, including uploaded images, processed images, and images that need to be downloaded.
+	* `static`: This folder is used to save temporary images, including uploaded images, processed images, and images that need to be downloaded.
 
-	*`utils`: Some basic constant definitions, and helper functions inside the main function
+	* `utils`: Some basic constant definitions, and helper functions inside the main function
 
-*`checkpoints`: Used to store downloaded model files.
+* `checkpoints`: Used to store downloaded model files.
 
-*`config`: Inherited from mmdetection's configs folder, according to mmdetection's model construction principle, rely on this folder to build a complete model.The Mask RCNN model used in this project is saved in the mask_rcnn folder, the file name is: mask_rcnn_r50_fpn_compet.py.
+* `config`: Inherited from mmdetection's configs folder, according to mmdetection's model construction principle, rely on this folder to build a complete model.The Mask RCNN model used in this project is saved in the mask_rcnn folder, the file name is: mask_rcnn_r50_fpn_compet.py.
 
-*`dataset`: Download the dataset from the specified [url](https://www.kaggle.com/c/sartorius-cell-instance-segmentation/data) and save it in this folder.
+* `dataset`: Download the dataset from the specified [url](https://www.kaggle.com/c/sartorius-cell-instance-segmentation/data) and save it in this folder.
 
-*`experiment`: The relevant code for converting the dataset to COCO form is saved here. The file form is `.ipynb`, and the platform is: Kaggle.
+* `experiment`: The relevant code for converting the dataset to COCO form is saved here. The file form is `.ipynb`, and the platform is: Kaggle.
 
-*`install`: A `.md` file is included here, which details how to install mmdetection.\\
-*`Models`: Model initialization and inference codes for different models are saved. Currently, there is only Mask RCNN.
+* `install`: A `.md` file is included here, which details how to install mmdetection.
 
-*`pytorch_pipeline`: The relevant code of the pytorch-based baseline model is saved here, which is a complete Mask RCNN project.
+* `Models`: Model initialization and inference codes for different models are saved. Currently, there is only Mask RCNN.
 
-*`results`: This is used to save all intermediate files, such as processed datasets, model evaluation files, etc.\\
+* `pytorch_pipeline`: The relevant code of the pytorch-based baseline model is saved here, which is a complete Mask RCNN project.
+
+* `results`: This is used to save all intermediate files, such as processed datasets, model evaluation files, etc.\\
 
 ## Python environment configuration and installation of related dependencies
 The introduction here is mainly based on Anaconda.
