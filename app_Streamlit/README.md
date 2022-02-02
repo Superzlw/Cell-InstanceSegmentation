@@ -12,9 +12,11 @@ A brief description of the deployment process follows:\\
 > import streamlit as st
 
 Streamlit provides many functions for layout, such as `st.sidebar`, `st.columns`, `st.title`, etc. .\\
+
 3. After deploying the model as needed, run in the terminal:
 
 > streamlit run run.py
 
 and view the results locally.\\
+
 4. update the project to github, register an account in Streamlit and connect with github.
