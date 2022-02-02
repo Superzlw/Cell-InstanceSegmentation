@@ -20,14 +20,8 @@ import os,sys,inspect
 current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parent_dir = os.path.dirname(current_dir)
 sys.path.insert(0, parent_dir)
-from Models.m_rcnn import init_model, inference, show_image
-#from Models.m_rcnn import init_model, inference, show_image
+from Models.m_rcnn import inference, show_image
 from mmdet.apis import inference_detector, init_detector, show_result_pyplot
-
-@st.cache(persist=True)
-def test_inf(model, img):
-    values = inference_detector(model, img)
-    return values
 
 def main():   
     st.title('cell instance segmentor')
@@ -78,8 +72,6 @@ def main():
                         #values = test_inf(model, img)
                         values = inference(cfg.CONFIG, cfg.CHECKPOINT, img)
                         show_image(cfg.CONFIG, cfg.CHECKPOINT, img,values, processed_filename, processed_img, thr)
-                        #res_df = get_prediction(cfg.CONFIG, cfg.CHECKPOINT, img,
-                        #                         processed_filename, processed_img)
                         processed_imgs.append(processed_img)
                         processed_filenames.append(processed_filename)
                         #processed_filename2res[processed_filename] = res_df
@@ -90,7 +82,6 @@ def main():
                 #with st.form(key='Select Image(s)'):
                     #st.write(os.listdir(cfg.TEMP_PROCESSED))
                 selected_option = st.multiselect("Select one or more options:",processed_filenames)
-                st.write(selected_option)
                 if 'ALL' in selected_option:
                     processed_filenames.remove('ALL')
                     selected_option = processed_filenames
