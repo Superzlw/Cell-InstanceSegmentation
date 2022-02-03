@@ -1,0 +1,4 @@
+easydict
+gdown
+googledrivedownloader
+pyxlsb

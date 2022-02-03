@@ -1,40 +1,50 @@
 # Introduction
-This repo contains everything from the Data Science2 project, i.e. Cell Instance Segmentation, including data processing, model building, model training, result evaluation, and different methods for deploying models to web pages (Streamlit, Flask & Heroku), This topic comes from the Kaggle competition, further information can be found here: [kaggle](https://www.kaggle.com/c/sartorius-cell-instance-segmentation)
+This repo serves for the project **Cell Instance Segmentation** within the course Data Science II. The whole pipeline 
+consists of data pre-processing, model building, model training, model evaluation, and deployment of candidate models to 
+web pages (Tools: 1. Streamlit; 2. Flask & Heroku). In addition, the data analytics is performed as a preliminary step before
+the whole pipeline. 
+
+The topic comes from the Kaggle competition, further information can be found here: [kaggle](https://www.kaggle.com/c/sartorius-cell-instance-segmentation)
 
 ## Folders
-In addition to the relevant folders mentioned above, referenced papers and Canvas files are also included here.
+The relevant folders are as follows:
 
 * `analytics`: It contains files related to data analysis (on Live-Cell dataset and Competition dataset) in the format of `.ipynb`
 
 * `app_Flask`: Here are the relevant files for deploying the model to Heroku based on Flask.
 
-	* 'app'
+    * `app`
 
-		* 'static': This folder is used to save temporary images, including uploaded images, processed images, and images that need to be downloaded.
+        * `static`: This folder is used to save temporary images, including uploaded images, processed images, and images that need to be downloaded.
 
-		* `templates`: Here are the codes of different web pages saved.
+        * `templates`: Here are the codes of different web pages saved.
 
 * `app_Streamlit`: Here are the relevant files for deploying the model to Streamlit-cloud based on streamlit.
 
-	* `static`: This folder is used to save temporary images, including uploaded images, processed images, and images that need to be downloaded.
+    * `static`: This folder is used to save temporary images, including uploaded images, processed images, and images that need to be downloaded.
 
-	* `utils`: Some basic constant definitions, and helper functions inside the main function
+    * `utils`: Some basic constant definitions, and helper functions inside the main function
 
-* `checkpoints`: Used to store downloaded model files.
+* `checkpoints`: Used to store downloaded model checkpoints (.pth).
 
-* `config`: Inherited from mmdetection's configs folder, according to mmdetection's model construction principle, rely on this folder to build a complete model.The Mask RCNN model used in this project is saved in the mask_rcnn folder, the file name is: mask_rcnn_r50_fpn_compet.py.
+* `configs`: Inherited from mmdetection's configs folder, according to mmdetection's model construction principle. The config
+file in this folder is used to build a complete machine learning pipeline spanning from data pre-processing to model evaluation. 
+The Mask RCNN model used in this project is saved in the `mask_rcnn` folder, the file name is: `mask_rcnn_r50_fpn_compet.py`.
 
 * `dataset`: Download the dataset from the specified [url](https://www.kaggle.com/c/sartorius-cell-instance-segmentation/data) and save it in this folder.
 
-* `experiment`: The relevant code for converting the dataset to COCO form is saved here. The file form is `.ipynb`, and the platform is: Kaggle.
+* `experiments`: It contains python scripts for converting the dataset to COCO form as well as building the training, 
+validation and testing pipeline. The file form is `.ipynb`, and the platform for using these scripts can be: **Kaggle**
+or **colab**.
 
-* `install`: A `.md` file is included here, which details how to install mmdetection.
+* `install`: A markdown file is included here, which mainly instructs how to configure the virtual env and install mmdetection.
 
 * `Models`: Model initialization and inference codes for different models are saved. Currently, there is only Mask RCNN.
 
-* `pytorch_pipeline`: The relevant code of the pytorch-based baseline model is saved here, which is a complete Mask RCNN project.
+* `pytorch_pipeline`: The implementation of the pytorch-based machine learning pipeline including baseline model (Mask R-CNN + R50)
+is saved here.
 
-* `results`: This is used to save all intermediate files, such as processed datasets, model evaluation files, etc.\\
+* `results`: This is used to save all intermediate files, such as processed datasets, model evaluation files, diagrams etc.
 
 ## Python environment configuration and installation of related dependencies
 The introduction here is mainly based on Anaconda.
@@ -46,13 +56,13 @@ update conda:
 
 > conda update conda
 
-Create a virtual environment with conda and specify the python version:
+Create a virtual environment with conda and specify the python version (py3.8 is tested):
 
-> conda create -n venv python=3.8
+> conda create -n <virtual env name> python=3.8
 
 Activate the virtual environment:
 
-> conda activate venv
+> conda activate <virtual env name>
 
 Install pytorch(1.6.0), cuda(10.1) and torchvision(0.7.0):
 
@@ -61,10 +71,40 @@ Install pytorch(1.6.0), cuda(10.1) and torchvision(0.7.0):
 For other versions, please refer to the pytorch official website: https://pytorch.org/
 
 ### Install MMDetection
-For the detailed installation process of MMDetection, please refer to: https://github.com/Superzlw/DS2/blob/main/install/INSTALLATION.md
-### Install and use Streamlit
-For the detailed of this part, please refer to:
-https://github.com/Superzlw/DS2/blob/main/app_Streamlit/README.md
+For the detailed installation instruction of MMDetection, please refer to the chapter **Install mmdetection in your virtual 
+environment** from the [markdown file](https://github.com/Superzlw/DS2/blob/main/install/INSTALLATION.md). 
+### Install Streamlit
+1. Install the relevant packages in your virtual environment in the terminal, as follows:
+
+> Command `pip install streamlit`
+
+2. Validate your installation of **streamlit** in your virtual environment in the terminal:
+
+> Command `python`
+> 
+> Command `import streamlit as st` in your python interpreter
+
+(Some words about Streamlit: it provides many functions for layout, such as `st.sidebar`, `st.columns`, `st.title`, etc. .)
+
+### Install other essential python packages 
+Command `pip install -r requirements.txt` in your virtual environment in the terminal
+
+## Usage
+After finishing the installation, 
+1. Navigate to **app_Streamlit** dir of your project directory **DS2** in the terminal and then:
+
+> Command `streamlit run run.py`
+
+to view the results in your localhost.
+
+2. Then you can navigate to [this link](https://share.streamlit.io/superzlw/ds2/main/app_Streamlit/run.py) to check the
+corresponding result on the web page beyond the page shown in localhost.
+
+
+(Note:
+If you are now still interested in building the web service on your own, you can then upload the current repo of this 
+project to your own github account, and then register an account in Streamlit and connect the APP with github.)
+
 
 ## Git Workflow and Review
 
