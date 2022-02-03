@@ -65,3 +65,18 @@ For the detailed installation process of MMDetection, please refer to: https://g
 ### Install and use Streamlit
 For the detailed of this part, please refer to:
 https://github.com/Superzlw/DS2/blob/main/app_Streamlit/README.md
+
+## Git Workflow and Review
+
+The collaboration requires some rules, to keep the code clean:
+
+* We are using GitHub's pull requests model to integrate new code into our repository.
+* Every pull request is reviewed by one of our maintainers.
+* We foster a git history that is clean, easy to read and to review.
+
+To guarantee this we follow the best practices described [here](https://www.git-tower.com/learn/git/ebook/en/command-line/appendix/best-practices#start).
+
+We use a rebase workflow with short living branches for features and bug fixes (see [here](https://www.git-tower.com/learn/git/ebook/en/command-line/advanced-topics/rebase#start)).
+
+One useful link for forked git repo:
+https://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/
