@@ -91,6 +91,7 @@ environment** from the [markdown file](https://github.com/Superzlw/DS2/blob/main
 Command `pip install -r requirements.txt` in your virtual environment in the terminal
 
 ## Usage
+### Streamlit-based web service (Debugged and Released)
 After finishing the installation, 
 1. Navigate to **app_Streamlit** dir of your project directory **DS2** in the terminal and then:
 
@@ -105,6 +106,13 @@ corresponding result on the remote web page apart from the page shown in localho
 (Note:
 If you are still interested in building the web service on your own, you can then upload the current repo of this 
 project to your own github account, and then register an account in Streamlit and connect the APP with github.)
+
+### Flask-Heroku-based web service
+This web service can now only work in localhost. The reason why it cannot work on the remote web page hosted on the Heroku
+server is attributed to the limited storage and computing source provided by Heroku. 
+
+To test this web service on localhost, you can refer to [this link](https://github.com/Superzlw/DS2/blob/main/app_Flask/README.md)
+for instruction.
 
 ## Training, Validation and Testing
 If you would like to reproduce the machine learning pipeline to obtain the model by yourself, please refer to the directory
