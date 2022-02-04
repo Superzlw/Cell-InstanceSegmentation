@@ -8,7 +8,7 @@ The basic pipeline is to analysis the cell shape, creating coco annotated datase
 
 # Sartorius: cell shape analysis
 
-Post-processing of detections will be key in this competition I think. To do proper filtering if detections we need a clear picture of the statistics of each of the three cell types. The aim of this notebook is to give some guidelines for post processing features regardless of which model is used. 
+Post-processing of detections will be key in this competition. To do proper filtering if detections we need a clear picture of the statistics of each of the three cell types. The aim of this notebook is to give some guidelines for post processing features regardless of which model is used. 
 
 # Sartorius: Create COCO annotations
 
@@ -33,6 +33,7 @@ List of data resources needed to read and write at runtime:
 
 `sartorius_create_coco_annotations.ipynb` provides the code to split dataset with coco annotations.
 
+##Training and model-related information
 #### offline_train_evaluation_pretrained_cm2liteV39_iter7000to15000.ipynb
 
 * **Pretrained model and config**
