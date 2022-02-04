@@ -31,7 +31,8 @@ The relevant folders are as follows:
 file in this folder is used to build a complete machine learning pipeline spanning from data pre-processing to model evaluation. 
 The Mask RCNN model used in this project is saved in the `mask_rcnn` folder, the file name is: `mask_rcnn_r50_fpn_compet.py`.
 
-* `dataset`: Download the dataset from the specified [url](https://www.kaggle.com/c/sartorius-cell-instance-segmentation/data) and save it in this folder.
+* `dataset`: You should download the dataset from the specified [url](https://www.kaggle.com/c/sartorius-cell-instance-segmentation/data) and save it in this folder.
+Currently, there is a folder called as `test` existing in the repo, which serves for model deployment demonstration.
 
 * `experiments`: It contains python scripts for converting the dataset to COCO form as well as building the training, 
 validation and testing pipeline. The file form is `.ipynb`, and the platform for using these scripts can be: **Kaggle**
