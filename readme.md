@@ -2,7 +2,7 @@
 
 [CenterMask2](https://github.com/youngwanLEE/centermask2) using [Detectron2](https://github.com/facebookresearch/detectron2) library perform well in object detection and instance segmentation, and the paper also demonstrates good results on the Livecell dataset, so CenterMask2 and Detectron2 are used as training frameworks to select appropriate variants and adjust hyperparameters for cell instance segmentation and prediction. 
 
-The code in this branch is based on the kaggle notebook
+The code in this branch is based on the kaggle notebook development Environment.
 
 The basic pipeline is to analysis the cell shape, creating coco annotated dataset and splitting it, training and evaluating the model with centermask 1/2, optimizing the results using Weighted Segments Fusion (WSF) and TTA (Test time augmentation), and testing the model.
 
@@ -33,7 +33,7 @@ List of data resources needed to read and write at runtime:
 
 `sartorius_create_coco_annotations.ipynb` provides the code to split dataset with coco annotations.
 
-### offline_train_evaluation_pretrained_cm2liteV39_iter7000to15000.ipynb
+#### offline_train_evaluation_pretrained_cm2liteV39_iter7000to15000.ipynb
 
 * **Pretrained model and config**
 
@@ -51,7 +51,7 @@ List of data resources needed to read and write at runtime:
 
 * **GPU**: Tesla P100-PCIE-16GB (arch=6.0)
 
-### offline_train_evaluation_pretrained_cm2liteV39_iter7000.ipynb
+#### offline_train_evaluation_pretrained_cm2liteV39_iter7000.ipynb
 
 * **Pretrained model and config**
 
@@ -69,7 +69,7 @@ List of data resources needed to read and write at runtime:
 
 * **GPU**: Tesla P100-PCIE-16GB (arch=6.0)
 
-### offline_train_evaluation_cm2liteV39_iter14000to24000.ipynb
+#### offline_train_evaluation_cm2liteV39_iter14000to24000.ipynb
 
 * **Pretrained model and config**
 
@@ -85,7 +85,7 @@ List of data resources needed to read and write at runtime:
 
 * **GPU**: Tesla P100-PCIE-16GB (arch=6.0)
 
-### offline_train_evaluation_cm2liteV39_iter14000.ipynb
+#### offline_train_evaluation_cm2liteV39_iter14000.ipynb
 
 * **Pretrained model and config**
 
@@ -101,7 +101,7 @@ List of data resources needed to read and write at runtime:
 
 * **GPU**: Tesla P100-PCIE-16GB (arch=6.0)
 
-### offline_train_evaluation_cm1liteV39_iter12000.ipynb
+#### offline_train_evaluation_cm1liteV39_iter12000.ipynb
 
 * **Pretrained model and config**
 
@@ -117,7 +117,7 @@ List of data resources needed to read and write at runtime:
 
 * **GPU**: Tesla P100-PCIE-16GB (arch=6.0)
 
-### online_train_evaluation_cm1liteV19_iter14000.ipynb
+#### online_train_evaluation_cm1liteV19_iter14000.ipynb
 
 * **Pretrained model and config**
 
