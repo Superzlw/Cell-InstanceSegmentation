@@ -29,7 +29,7 @@ List of data resources needed to read and write at runtime:
 * Configs and models from [CenterMask2](https://github.com/youngwanLEE/centermask2) 
 * Dataset with coco annotations after splitting
 
-`detectron2-download-code-for-offline-install.ipynb` provides the code to generate the files for offline installation of Detectron2.
+`detectron2_download_code_for_offline_install.ipynb` provides the code to generate the files for offline installation of Detectron2.
 
 `sartorius_create_coco_annotations.ipynb` provides the code to split dataset with coco annotations.
 
