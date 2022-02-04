@@ -154,7 +154,7 @@ List of data resources needed to read and write at runtime:
 * Sartorius: Cell shape analysis
 * Weighted boxes fusion offline installation
 
-`sartorius_cell_shape_analysis.ipynb` provides the shape_data.pkl file.
+`sartorius_cell_shape_analysis.ipynb` provides the code to create shape_data.pkl file.
 
 `weighted_boxes_fusion_offline_installation.ipynb` provides the code for weighted boxes fusion offline installation.
 
