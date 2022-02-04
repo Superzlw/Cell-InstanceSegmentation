@@ -112,11 +112,12 @@ we have no access to local GPUs or GPUs provided by any institute on campus, ins
 **colab** and **Kaggle** for our training on GPU.
 ### Usage
 1. First use the notebook named as "data_preprocessing_convert_to_coco_colab.ipynb" and run it on colab. The desired result
-after running should be the dataset in COCO format, which applies to both **LIVECell** and **Conmpetition** dataset.
+after running should be the dataset in COCO format, which applies to both **LIVECell** and **Conmpetition** dataset. The reason
+for this step is that dataset in COCO format is the prerequisite for training models using mmdetection. 
 2. Then run any notebook with the name beginning with prefix "train" can start the training. To understand what kind of model,
 what kind of dataset, and what kind of platform, and others, you are using, please refer to the following naming convention
 for the notebooks:
-   1. "*train_<model_name>_<dataset(s)>_<training_platform>.ipynb*"
+   1. "*train\_<model_name>\_<dataset(s)>\_<training_platform>.ipynb*"
    2. One example, when you would like to train the model "cascade_mask_rcnn_cbv2_swin_tiny" only based on the dataset "LIVECell"
    on the platform "colab", then you can use the notebook "train_cascade_mask_rcnn_cbv2_swin_tiny_only_livecell_colab.ipynb"
    3. Another example, when you would like to train the model "cascade_mask_rcnn_cbv2_swin_small" both based on the dataset "LIVECell"
