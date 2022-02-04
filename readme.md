@@ -33,7 +33,7 @@ List of data resources needed to read and write at runtime:
 
 `sartorius_create_coco_annotations.ipynb` provides the code to split dataset with coco annotations.
 
-##Training and model-related information
+## Training and model-related information
 #### offline_train_evaluation_pretrained_cm2liteV39_iter7000to15000.ipynb
 
 * **Pretrained model and config**
