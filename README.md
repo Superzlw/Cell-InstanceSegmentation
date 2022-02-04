@@ -95,16 +95,32 @@ After finishing the installation,
 
 > Command `streamlit run run.py`
 
-to view the results in your localhost.
+to view the results on web page in your localhost.
 
 2. Then you can navigate to [this link](https://share.streamlit.io/superzlw/ds2/main/app_Streamlit/run.py) to check the
-corresponding result on the web page beyond the page shown in localhost.
+corresponding result on the remote web page apart from the page shown in localhost.
 
 
 (Note:
-If you are now still interested in building the web service on your own, you can then upload the current repo of this 
+If you are still interested in building the web service on your own, you can then upload the current repo of this 
 project to your own github account, and then register an account in Streamlit and connect the APP with github.)
 
+## Training, Validation and Testing
+If you would like to reproduce the machine learning pipeline to obtain the model by yourself, please refer to the directory
+**experiments**, where there are only notebooks. The reason why no python script is written for the pipeline is that
+we have no access to local GPUs or GPUs provided by any institute on campus, instead we can only use the open-source
+**colab** and **Kaggle** for our training on GPU.
+### Usage
+1. First use the notebook named as "data_preprocessing_convert_to_coco_colab.ipynb" and run it on colab. The desired result
+after running should be the dataset in COCO format, which applies to both **LIVECell** and **Conmpetition** dataset.
+2. Then run any notebook with the name beginning with prefix "train" can start the training. To understand what kind of model,
+what kind of dataset, and what kind of platform, and others, you are using, please refer to the following naming convention
+for the notebooks:
+   1. "*train_<model_name>_<dataset(s)>_<training_platform>.ipynb*"
+   2. One example, when you would like to train the model "cascade_mask_rcnn_cbv2_swin_tiny" only based on the dataset "LIVECell"
+   on the platform "colab", then you can use the notebook "train_cascade_mask_rcnn_cbv2_swin_tiny_only_livecell_colab.ipynb"
+   3. Another example, when you would like to train the model "cascade_mask_rcnn_cbv2_swin_small" both based on the dataset "LIVECell"
+   and "Competition" on the platform "colab", then you can use the notebook "train_cascade_mask_rcnn_cbv2_swin_small_livecell_compet_colab.ipynb"
 
 ## Git Workflow and Review
 
