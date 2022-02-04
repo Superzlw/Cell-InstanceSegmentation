@@ -16,11 +16,9 @@ There are many semantic segmentation tools available, and they all require image
 
 # Train and Evaluation
 
-The training .ipynb and the final prediction .ipynb are divided into two files, and the trained model is used for prediction and inference with a one-to-one version relationship.
+The training with evaluation noteboook and the test notebook are divided into two parts, the trained model is used for testing, prediction and inference with a one-to-one version relationship.
 
 The training run time environment for the model is in kaggle, and offline training is required for submitting the results, so offline configuration of Centermask2 and other environments is required. Both online and offline training versions of the code are provided here.
-
-For details(relevant data and code) on training and evaluation see the .ipynb files.
 
 List of data resources needed to read and write at runtime:
 
