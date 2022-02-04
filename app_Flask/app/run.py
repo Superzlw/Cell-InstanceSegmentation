@@ -12,18 +12,28 @@ from wtforms import SubmitField
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 
 import numpy as np
-# from app.utils.model import run_model, get_model
 from redis import Redis
 import os
 import time
+import gdown
 
 from rq import Queue
 from rq.job import Job
 from worker import conn
 import pathlib2
 from config import cfg  # since app is the base package
-#from mmdet_utils import get_prediction  # since app is the base package
-from mmdet_w import run_model
+from mmdet_model import run_model
+
+def download_from_google():
+    """
+    download the checkpoint-file from google drive
+    """
+    try:
+        gdown.download(cfg.URL, cfg.CHECKPOINT, quiet=True)
+    except Exception:
+        raise Exception('Something wrong while downloading the checkpoint file')
+    else:
+        print("downloading the checkpoint file: finish")
 
 
 current_dir = pathlib2.Path.cwd()
@@ -35,8 +45,8 @@ app = Flask(__name__)
 
 #app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
-app.config['UPLOADED_IMAGES_DEST'] = 'app/static/temp_imgs'
-app.config['DOWNLOAD_IMAGES_DEST'] = 'app/static/temp_processed_imgs'
+app.config['UPLOADED_IMAGES_DEST'] = 'static/temp_imgs'
+app.config['DOWNLOAD_IMAGES_DEST'] = 'static/temp_processed_imgs'
 app.config['PREFERRED_URL_SCHEME'] = 'https'
 
 task_queue = Queue('detector',connection=conn)
@@ -58,22 +68,19 @@ class Download(FlaskForm):
 def index():
     upload_form = Upload()
     if request.method == 'POST':
+        if not 'mask_rcnn_r50_20e_compet.pth' in os.listdir('../../checkpoints'):
+            download_from_google()
         if upload_form.validate_on_submit():
             filename = images.save(upload_form.image.data)
             processed_filename = f"detected_{filename}"
             img = os.path.join(app.config['UPLOADED_IMAGES_DEST'], filename)
             print(img)
             print(os.listdir(app.config['UPLOADED_IMAGES_DEST']))
-            #img = f"{app.config['UPLOADED_IMAGES_DEST']}{filename}"
-            #processed_img = f"{app.config['UPLOADED_IMAGES_DEST']}{processed_filename}"
             processed_img = os.path.join(app.config['DOWNLOAD_IMAGES_DEST'], processed_filename)
             print("processed-", processed_img)
             
             test_imgs = "/".join(img.split('/')[1:])
             processed_filename = processed_filename
-            #processed_img = "/".join(processed_img.split('/')[1:])
-            #print(processed_img)
-            #get_prediction(cfg.CONFIG, cfg.CHECKPOINT, test_imgs, processed_filename, processed_img)
             run_model(cfg.CONFIG, cfg.CHECKPOINT, img, processed_filename, processed_img)
             return redirect(url_for('show', picture=filename, processed_filename=processed_filename))
     else:

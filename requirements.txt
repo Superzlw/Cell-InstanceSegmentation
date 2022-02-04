@@ -2,3 +2,12 @@ easydict
 gdown
 googledrivedownloader
 pyxlsb
+
+# the following packages are for deployment based on Flask
+flask
+flask_uploads
+flask_wtf
+werkzeug
+pathlib2
+redis
+rq

@@ -4,7 +4,7 @@ save_data_on_exit = True
 save_history = True
 save_non_project_files = False
 project_type = 'empty-project-type'
-recent_files = ['Models\\m_rcnn.py', 'app_Streamlit\\run.py', 'app_Streamlit\\utils\\config.py', 'app_Streamlit\\utils\\utils_func.py']
+recent_files = ['Models\\m_rcnn.py', 'app_Streamlit\\run.py', 'app_Streamlit\\utils\\config.py', 'app_Streamlit\\utils\\utils_func.py', 'pytorch_pipeline\\datasets\\coco.py', 'app_Flask\\app\\test_app_w.py', 'app_Flask\\app\\mmdet_w.py', 'app_Flask\\app\\config.py']
 
 [main]
 version = 0.2.0

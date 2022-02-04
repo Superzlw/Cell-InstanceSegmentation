@@ -1,6 +1,15 @@
 # Indruction
 This folder contains the relevant files about the model deployment on heroku based on Flask.
 ## *Flask*
+Related dependencies can refer to the `requirements.txt ` in the main directory.
+
+> **Note**: If you get error named "cannot import name 'secure_filename' from 'werkzeug", you could check `flask_uploads.py` and change:
+> from werkzeug import secure_filename,FileStorage
+
+to
+
+> from werkzeug.utils import secure_filename
+> from werkzeug.datastructures import  FileStorage
 
 
 ## *gunicorn* (not suitalbe for windows) but *waitress*
