@@ -40,14 +40,12 @@ def main():
                     st.sidebar.image(uploaded_file)
                     up_img = Image.open(uploaded_file)
                     up_img.save(os.path.join(cfg.TEMP_ORIGNAL, uploaded_file.name))
-                    #img = f'app/static/temp_imgs/{uploaded_file.name}'
         else:
             is_valid = False
     else:
         pass
             
     if is_valid:
-        #st.write(os.listdir(cfg.TEMP_ORIGNAL))
         print('valid')
         cols = st.columns(3)
         cols[0].header('Orignal input-images')
