@@ -6,6 +6,13 @@ The code in this branch is based on the kaggle notebook development Environment.
 
 The basic pipeline is to analysis the cell shape, creating coco annotated dataset and splitting it, training and evaluating the model with centermask 1/2, optimizing the results using Weighted Segments Fusion (WSF) and TTA (Test time augmentation), and testing the model.
 
+## Description of the header corresponding to the directory
+* **Sartorius: cell shape analysis**: `DS2/shape_analysis`.
+* **Sartorius: Create COCO annotations**: `DS2/coco_annotations`.
+* **Train and Evaluation**: `DS2/train_evaluation`.
+* **Sartorius: TTA with weighted segments fusion**: `DS2/TTA_WSF`.
+* **Test**: `DS2/test`.
+
 # Sartorius: cell shape analysis
 
 Post-processing of detections will be key in this competition. To do proper filtering if detections we need a clear picture of the statistics of each of the three cell types. The aim of this notebook is to give some guidelines for post processing features regardless of which model is used. 
