@@ -41,6 +41,7 @@ def inference(config, checkpoint, test_img):
 def show_image(config, checkpoint, test_img, values, processed_filename, processed_img, thr):
     #for test_img in test_imgs:
     #values = _inference(model, test_img)
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     model = init_model(config, checkpoint)
     model.show_result(test_img, values, score_thr=thr, show=False,
             win_name=processed_filename,
@@ -66,6 +67,7 @@ def show_image(config, checkpoint, test_img, values, processed_filename, process
     cv2.addWeighted(sum_mask, 0.6, left_img, 1 - 0.6, 0, right_img, dtype=cv2.CV_32F)
     final_img = np.concatenate((left_img, right_img), axis=1)
     save_path = os.path.join(cfg.TEMP_PROCESSED, f'mask_{processed_filename}')
+    print(save_path)
     cv2.imwrite(save_path, sum_mask)
         
         

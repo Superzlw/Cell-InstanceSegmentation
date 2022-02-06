@@ -28,6 +28,8 @@ def main():
     source = ("Mask RCNN", "Demo-Faster RCNN")
     source_index = st.sidebar.selectbox("Model", range(
         len(source)), format_func = lambda x: source[x])
+    if 'check' not in st.session_state:
+        st.session_state.check = False
     thr = st.sidebar.slider('Threshold', 0., 1., 0.5, 0.05)
     if source_index == 0:
         #init_folder(cfg.TEMP_ORIGNAL)
@@ -52,17 +54,16 @@ def main():
         cols[1].header('Processed with label')
         cols[2].header('Processed only mask')
         processed_filenames = ['ALL']
-        if st.button("Start testing"):
+        if st.button("Start testing") or st.session_state.check:
+            st.session_state.check = True
             if source_index == 0:
-                if not 'mask_rcnn_r50_20e_compet.pth' in os.listdir('./checkpoints'):
+                if not 'mask_rcnn_r50_20e_compet.pth' in os.listdir('./checkpoints'):# here delete one '.'before deployment
                     download_from_google()
-                #model = init_model(cfg.CONFIG, cfg.CHECKPOINT)
                 with st.spinner(text='Preparing Image...'):
                     processed_imgs = []
                                         
                     processed_filename2res = {}
                     imgs = os.listdir(cfg.TEMP_ORIGNAL)
-                    #st.write(uploaded_files)
                     for img in uploaded_files:
                         processed_filename = f'processed_{img.name}'
                         img = os.path.join(cfg.TEMP_ORIGNAL, img.name)
@@ -72,13 +73,10 @@ def main():
                         show_image(cfg.CONFIG, cfg.CHECKPOINT, img,values, processed_filename, processed_img, thr)
                         processed_imgs.append(processed_img)
                         processed_filenames.append(processed_filename)
-                        #processed_filename2res[processed_filename] = res_df
                         cols[0].image(img)
                         cols[1].image(processed_img)
                         cols[2].image(os.path.join(cfg.TEMP_PROCESSED, f'mask_{processed_filename}'))
-                #st.image(processed_imgs)
-                #with st.form(key='Select Image(s)'):
-                    #st.write(os.listdir(cfg.TEMP_PROCESSED))
+                
                 selected_option = st.multiselect("Select one or more options:",processed_filenames)
                 if 'ALL' in selected_option:
                     processed_filenames.remove('ALL')
@@ -86,9 +84,6 @@ def main():
                 print(selected_option)
                 save4download(selected_option)
                 zipFiles()
-                    #submit_button = st.form_submit_button(label='Submit')
-                #if submit_button:
-                    #downlaod_result(processed_filename2res, processed_filenames, selected_option)
                 path = os.path.join(cfg.TEMP, 'result.zip')
                 with open(path, "rb") as fp:
                     btn = st.download_button(

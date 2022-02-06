@@ -8,7 +8,7 @@ cfg = _C
 _C.CONFIG = '../../configs/mask_rcnn/mask_rcnn_r50_fpn_compet.py'
 #_C.CONFIG = '../configs/faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py'
 # Set the path to the candidate checkpoint relative to the main.py
-_C.CHECKPOINT = '../../checkpoints/mask_rcnn_r50_fpn_20e_compet_epoch_10.pth'
+_C.CHECKPOINT = '../../checkpoints/mask_rcnn_r50_20e_compet.pth'
 #_C.CHECKPOINT = '../checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth'
 
 # post processing parameters
