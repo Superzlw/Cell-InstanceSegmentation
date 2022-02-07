@@ -11,7 +11,7 @@
 import torch
 import numpy as np
 import pdb
-from cell_is.model.utils.config import cfg
+from utils.config import cfg
 
 
 def bbox_decode(rois, bbox_pred, batch_size, class_agnostic, classes, im_info, training):

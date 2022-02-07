@@ -1,9 +1,10 @@
 """Transform a roidb into a trainable roidb by adding a bunch of metadata."""
-
-from pytorch_pipeline import datasets
+import sys 
+sys.path.append("..")
+import dataset
 import numpy as np
-from pytorch_pipeline.model.utils.config import cfg
-from pytorch_pipeline.datasets.factory import get_imdb
+from utils.config import cfg
+from dataset.factory import get_imdb
 import PIL
 import pdb
 
@@ -146,7 +147,7 @@ def combined_roidb(imdb_names, training=True):
         for r in roidbs[1:]:
             roidb.extend(r)
         tmp = get_imdb(imdb_names.split('+')[1])
-        imdb = datasets.imdb.imdb(imdb_names, tmp.classes)
+        imdb = dataset.imdb.imdb(imdb_names, tmp.classes)
     else:
         imdb = get_imdb(imdb_names)
 
@@ -166,5 +167,6 @@ if __name__ == '__main__':
             print(k)
             break
     print(f'the size of ut_roidb is: {sys.getsizeof(ut_roidb) / (1024**2)} Mb')
-    import pprint
-    pprint.pprint(ut_roidb[0])
+    # print(dataset[k][1])
+    # print('--------')
+    # print(dataset[k][2], dataset[k][3], dataset[k][4])

@@ -9,9 +9,9 @@
 
 __sets = {}
 
-from pytorch_pipeline.datasets.coco import coco
-from pytorch_pipeline.datasets.livecell import livecell
-from pytorch_pipeline.datasets.competition import competition
+from dataset.coco import coco
+from dataset.livecell import livecell
+#from rkx_cell_is.cell_is.datasets.competition import competition
 
 import numpy as np
 
@@ -42,6 +42,7 @@ for genre in ['coco']:
 
 # Setup competition_2021_<split>, where 'train' represents the train+val dataset
 # TODO (XU) to consider the split!
+'''
 for year in ['2021']:
     for split in ['train']:
         name = f'competition_{year}_{split}'
@@ -54,7 +55,7 @@ for year in ['2021']:
         name = f'competition_{year}_{split}'
         __sets[name] = (lambda split=split, year=year: competition(split, year))
 
-
+'''
 def get_imdb(name):
   """Get an imdb (image database) by name."""
   if name not in __sets:

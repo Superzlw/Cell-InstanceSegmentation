@@ -12,7 +12,7 @@ import PIL
 # from cell_is.model.utils.cython_bbox import bbox_overlaps
 import numpy as np
 import scipy.sparse
-from pytorch_pipeline.model.utils.config import cfg
+from utils.config import cfg
 import pdb
 
 ROOT_DIR = osp.join(osp.dirname(__file__), '..', '..')

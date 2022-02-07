@@ -41,7 +41,7 @@ def parse_args():
     """
     parser = argparse.ArgumentParser(description='Train an instance segmentation network')
     # exp_name is a pos. argument that can be replaced by the user-defined name
-    #parser.add_argument('exp_name', type=str, default=None, help='experiment name')
+    parser.add_argument('exp_name', type=str, default=None, help='experiment name')
     parser.add_argument('--isAnchor_based', default=True, dest='isAnchor_based',
                         help='choose anchor-based or anchor-free')
     parser.add_argument('--dataset', dest='dataset',
@@ -82,7 +82,7 @@ def parse_args():
                         default=1, type=int)
     parser.add_argument('--vbs', dest='val_batch_size',
                         help='validation_batch_size',
-                        default=2, type=int)
+                        default=1, type=int)
     parser.add_argument('--cag', dest='class_agnostic',
                         help='whether perform class_agnostic bbox regression',
                         action='store_true')
@@ -142,11 +142,11 @@ if __name__ == '__main__':
     print('Called with args:')
     print(args)
 
-    # if args.use_tfboard:
-    #     # from model.utils.logger import Logger
-    #     # # Set the logger
-    #     # logger = Logger('./logs')
-    #     writer = SummaryWriter(comment=args.exp_name)
+    if args.use_tfboard:
+        # from model.utils.logger import Logger
+        # # Set the logger
+        # logger = Logger('./logs')
+        writer = SummaryWriter(comment=args.exp_name)
 
     # to switch to the given dataset
     if args.dataset == "coco":
@@ -245,9 +245,9 @@ if __name__ == '__main__':
         # set up the data preprocessing for anchor-free model
         pass
 
-    # if args.exp_name is not None:
-    #     output_dir = args.save_dir + "/" + args.net + "/" + args.dataset + '/' + args.exp_name
-    # else:
-    #     output_dir = args.save_dir + "/" + args.net + "/" + args.dataset
-    # if not os.path.exists(output_dir):
-    #     os.makedirs(output_dir)
+    if args.exp_name is not None:
+        output_dir = args.save_dir + "/" + args.net + "/" + args.dataset + '/' + args.exp_name
+    else:
+        output_dir = args.save_dir + "/" + args.net + "/" + args.dataset
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)

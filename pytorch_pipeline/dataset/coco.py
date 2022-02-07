@@ -7,9 +7,9 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from pytorch_pipeline.datasets.imdb import imdb
-import pytorch_pipeline.datasets.ds_utils as ds_utils
-from pytorch_pipeline.model.utils.config import cfg
+from dataset.imdb import imdb
+import dataset.ds_utils as ds_utils
+from utils.config import cfg
 import os.path as osp
 import sys
 import os
@@ -20,9 +20,9 @@ import pickle
 import json
 import uuid
 # COCO API
-from pytorch_pipeline.pycocotools.coco import COCO
-from pytorch_pipeline.pycocotools.cocoeval import COCOeval
-from pytorch_pipeline.pycocotools import mask as COCOmask
+from pycocotools.coco import COCO
+from pycocotools.cocoeval import COCOeval
+from pycocotools import mask as COCOmask
 
 class coco(imdb):
   def __init__(self, image_set, year):

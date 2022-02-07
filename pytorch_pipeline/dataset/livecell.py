@@ -4,9 +4,10 @@
 # Written by Ross Girshick and Xinlei Chen
 # --------------------------------------------------------
 
-from pytorch_pipeline.datasets.imdb import imdb
-from pytorch_pipeline.datasets import ds_utils as ds_utils
-from pytorch_pipeline.model.utils.config import cfg
+from dataset import imdb as newimdb
+from dataset.imdb import imdb
+from dataset import ds_utils as ds_utils
+from utils.config import cfg
 import os.path as osp
 import sys
 import os
@@ -17,38 +18,38 @@ import pickle
 import json
 import uuid
 # COCO API
-from pytorch_pipeline.pycocotools.coco import COCO
-from pytorch_pipeline.pycocotools.cocoeval import COCOeval
-from pytorch_pipeline.pycocotools import mask as COCOmask
+from pycocotools.coco import COCO
+from pycocotools.cocoeval import COCOeval
+from pycocotools import mask as COCOmask
 
-class competition(imdb):
-  def __init__(self, image_set, year):
-    imdb.__init__(self, 'competition_' + year + '_' + image_set)
+class livecell(imdb):
+  def __init__(self, image_set, genre):
+    imdb.__init__(self, 'livecell_' + genre + '_' + image_set)
     # COCO specific config options
     self.config = {'use_salt': True,
                    'cleanup': True}
     # name, paths
-    self._year = year
+    self._genre = genre
     self._image_set = image_set
-    self._data_path = osp.join(cfg.DATA_DIR, 'coco')
+    self._data_path = osp.join(cfg.DATA_DIR, 'LIVECell_dataset_2021')
     # load COCO API, classes, class <-> id mappings
     self._COCO = COCO(self._get_ann_file())  # load annotations into memory
-    # XU: first get the all category ids (e.g., 1~20 for twenty classes without background ) in list format given in the
+    # XU: first get all category ids (e.g., 1~20 for twenty classes without background ) in list format given in the
     # categories part of the dataset OR get the only category id (1 for the only cell class) in list format in our case
     # (LIVECell) and then should return the category contents corresponding to the extracted category ids above in list
-    # format
+    # of dict(s) format
     cats = self._COCO.loadCats(self._COCO.getCatIds())
-    # XU: return tuple: ('__background__', 'cat', 'dog', ...), which then overrides the original self._classes in class
+    # XU: return tuple: ('__background__', 'cell'), which then overrides the original self._classes in class
     # imdb
     self._classes = tuple(['__background__'] + [c['name'] for c in cats])
     # XU: return dict of key for category name including __background__ and value for number ranging from 0 to including
-    # len(num_classes)-1
+    # num_classes-1 ( = 1)
     self._class_to_ind = dict(list(zip(self.classes, list(range(self.num_classes)))))
-    # XU: return dict of key for category without __background__ name and value for number ranging from 1 to including
-    # len(num_classes)-1
+    # XU: return dict of key for category name without __background__ and value for number ranging from 1 to including
+    # num_classes-1 ( = 1)
     self._class_to_coco_cat_id = dict(list(zip([c['name'] for c in cats],
                                                self._COCO.getCatIds())))
-    # XU: return the image ids of the images part of the dataset
+    # XU: return the image ids of the images part of the dataset in form of list
     self._image_index = self._load_image_set_index()
     # Default to roidb handler
     self.set_proposal_method('gt')
@@ -58,41 +59,38 @@ class competition(imdb):
     # For example, minival2014 is a random 5000 image subset of val2014.
     # This mapping tells us where the view's images and proposals come from.
     self._view_map = {
-      'minival2014': 'val2014',  # 5k val2014 subset
-      'valminusminival2014': 'val2014',  # val2014 \setminus minival2014
-      'test-dev2015': 'test2015',
-      'valminuscapval2014': 'val2014',
-      'capval2014': 'val2014',
-      'captest2014': 'val2014'
+      'livecell_train_images': 'livecell_train_val_images',
+      'livecell_val_images': 'livecell_train_val_images',
     }
-    coco_name = image_set + year  # e.g., "val2014"
+    coco_name = 'livecell_' + image_set + '_images'  # e.g., "livecell_train_images"
     self._data_name = (self._view_map[coco_name]
                        if coco_name in self._view_map
                        else coco_name)
     # Dataset splits that have ground-truth annotations (test splits
     # do not have gt annotations)
-    self._gt_splits = ('train', 'val', 'minival')
+    # XU: here there is no split of minival
+    self._gt_splits = ('train', 'val')
 
   def _get_ann_file(self):
     # to get the annotation file
-    # if the string 'test' is not found within it, then return e.g. 'data/coco/annotations/instances_train2014.json'
-    # else return e.g. 'data/coco/image_info_test2014.json'
-    prefix = 'instances' if self._image_set.find('test') == -1 \
-      else 'image_info'
-    return osp.join(self._data_path, 'annotations',
-                    prefix + '_' + self._image_set + self._year + '.json')
+    prefix = 'livecell'
+    return osp.join(self._data_path, 'annotations', 'LIVECell',
+                    prefix + '_coco_' + self._image_set + '.json')
 
   def _load_image_set_index(self):
     """
     Load image ids.
     """
+    # XU: return the list of image ids (int)
     image_ids = self._COCO.getImgIds()
     return image_ids
 
-  def _get_widths(self):
-    anns = self._COCO.loadImgs(self._image_index)
-    widths = [ann['width'] for ann in anns]
-    return widths
+  # -- Note: this method is duplicate to the one below and not correct given the context that self.roidb is used
+  #          thus being deprecated.
+  # def _get_widths(self):
+  #   anns = self._COCO.loadImgs(self._image_index)
+  #   widths = [ann['width'] for ann in anns]
+  #   return widths
 
   def image_path_at(self, i):
     """
@@ -110,12 +108,16 @@ class competition(imdb):
     """
     Construct an image path from the image's "index" identifier.
     """
+    import re
     # Example image path for index=119993:
-    #   images/train2014/COCO_train2014_000000119993.jpg
-    file_name = ('COCO_' + self._data_name + '_' +
-                 str(index).zfill(12) + '.jpg')
+    #   images/livecell_train_val_images/COCO_train2014_000000119993.jpg
+    im_ann = self._COCO.loadImgs(index)[0]
+    file_name = im_ann['file_name']
+    patt_obj = re.match(r"[a-zA-Z0-9]+", file_name, flags=0)
+    par_dir_name = patt_obj.group(0)
+    # file_name = ('COCO_' + self._data_name + '_' + str(index).zfill(12) + '.png')  # original retrieval for coco
     image_path = osp.join(self._data_path, 'images',
-                          self._data_name, file_name)
+                          self._data_name, par_dir_name, file_name)
     assert osp.exists(image_path), \
       'Path does not exist: {}'.format(image_path)
     return image_path
@@ -125,6 +127,7 @@ class competition(imdb):
     Return the database of ground-truth regions of interest.
     This function loads/saves from/to a cache file to speed up future calls.
     """
+    # XU: return the file path as "dataset/cache/<self.name>_gt_roidb.pkl"
     cache_file = osp.join(self.cache_path, self.name + '_gt_roidb.pkl')
     if osp.exists(cache_file):
       with open(cache_file, 'rb') as fid:
@@ -132,6 +135,7 @@ class competition(imdb):
       print('{} gt roidb loaded from {}'.format(self.name, cache_file))
       return roidb
 
+    # XU: return the list of dicts, whose length equals to the length of self._image_index
     gt_roidb = [self._load_coco_annotation(index)
                 for index in self._image_index]
 
@@ -151,9 +155,10 @@ class competition(imdb):
     width = im_ann['width']
     height = im_ann['height']
 
-    # return the annotation ids (i.e., list of ann ids) for the given image id
+    # XU: return the annotation ids (i.e., list of instance ids) for the given image id
+    # XU: iscrowd can be set as None as default or False / 0, since there is no other value of it
     annIds = self._COCO.getAnnIds(imgIds=index, iscrowd=None)
-    # return the list of annotations, each of which correspond to the resulted annotation id above
+    # XU: return the list of dicts, of which each dict represents integrate info of annotation
     objs = self._COCO.loadAnns(annIds)
     # Sanitize bboxes -- some are invalid
     valid_objs = []
@@ -164,7 +169,10 @@ class competition(imdb):
       y2 = np.min((height - 1, y1 + np.max((0, obj['bbox'][3] - 1))))
       if obj['area'] > 0 and x2 >= x1 and y2 >= y1:
         obj['clean_bbox'] = [x1, y1, x2, y2]
+        # XU: set 'clean_seg' in order to keep consistent with filtered bboxes
+        obj['clean_seg'] = obj['segmentation']
         valid_objs.append(obj)
+    # XU: return the new objs with a new column named clean_bbox which owns top-left and bottom-right coord via filter
     objs = valid_objs
     # return the length of the resulting valid objects that only own the valid bounding boxes
     num_objs = len(objs)
@@ -173,7 +181,6 @@ class competition(imdb):
     gt_classes = np.zeros((num_objs), dtype=np.int32)
     overlaps = np.zeros((num_objs, self.num_classes), dtype=np.float32)
     seg_areas = np.zeros((num_objs), dtype=np.float32)
-    instance_masks = []
 
     # Lookup table to map from COCO category ids to our internal class
     # indices
@@ -182,10 +189,12 @@ class competition(imdb):
                                      for cls in self._classes[1:]])
 
     for ix, obj in enumerate(objs):
+      # XU: return class_ind : 1 (only one)
       cls = coco_cat_id_to_class_ind[obj['category_id']]
       boxes[ix, :] = obj['clean_bbox']
       gt_classes[ix] = cls
       seg_areas[ix] = obj['area']
+
       if obj['iscrowd']:
         # Set overlap to -1 for all classes for crowd objects
         # so they will be excluded during training
@@ -193,33 +202,21 @@ class competition(imdb):
       else:
         overlaps[ix, cls] = 1.0
 
-      # Build mask of shape [height, width, instance_count]
-      if cls:
-        m = self.annToMask(obj, height, width)
-        # Some objects are so small that they're less than 1 pixel area
-        # and end up rounded out. Skip those objects.
-        if m.max() < 1:
-          continue
-        # Is it a crowd? If so, use a negative class ID.
-        if obj['iscrowd']:
-          # Use negative class ID for crowds
-          cls *= -1
-          # For crowd masks, annToMask() sometimes returns a mask
-          # smaller than the given dimensions. If so, resize it.
-          if m.shape[0] != height or m.shape[1] != width:
-            m = np.ones((height, width), dtype=bool)
-        instance_masks.append(m)
-    mask = np.stack(instance_masks, axis=2).astype(np.bool)
-
+    # XU: obj['clean_seg'] stands for [[...]] (polygon-based)
+    # XU: return the list of
+    segmentation = [obj['clean_seg'] for obj in objs]
+    # validate all the elements of boxes
     ds_utils.validate_boxes(boxes, width=width, height=height)
-    overlaps = scipy.sparse.csr_matrix(overlaps)
     return {'width': width,
             'height': height,
             'boxes': boxes,
             'gt_classes': gt_classes,
             'gt_overlaps': overlaps,
             'flipped': False,
-            'seg_areas': seg_areas}
+            'seg_areas': seg_areas,
+            'segmentation': segmentation}
+
+  # The following two functions are from pycocotools with a few changes.
 
   def annToRLE(self, ann, height, width):
     """
@@ -253,7 +250,13 @@ class competition(imdb):
     return [r['width'] for r in self.roidb]
 
   def append_flipped_images(self):
+    """
+    Only for image augmentation off-line
+    :return: None
+    """
+    # XU: return the total number of all image ids
     num_images = self.num_images
+    # XU: return the list of integers
     widths = self._get_widths()
     for i in range(num_images):
       boxes = self.roidb[i]['boxes'].copy()
@@ -262,13 +265,15 @@ class competition(imdb):
       boxes[:, 0] = widths[i] - oldx2 - 1
       boxes[:, 2] = widths[i] - oldx1 - 1
       assert (boxes[:, 2] >= boxes[:, 0]).all()
+      mask = np.fliplr(self.roidb[i]['mask'].copy())
       entry = {'width': widths[i],
                'height': self.roidb[i]['height'],
                'boxes': boxes,
                'gt_classes': self.roidb[i]['gt_classes'],
                'gt_overlaps': self.roidb[i]['gt_overlaps'],
                'flipped': True,
-               'seg_areas': self.roidb[i]['seg_areas']}
+               'seg_areas': self.roidb[i]['seg_areas'],
+               'mask': mask}
 
       self.roidb.append(entry)
     self._image_index = self._image_index * 2
@@ -365,7 +370,7 @@ class competition(imdb):
   def evaluate_detections(self, all_boxes, output_dir):
     res_file = osp.join(output_dir, ('detections_' +
                                      self._image_set +
-                                     self._year +
+                                     self._genre +
                                      '_results'))
     if self.config['use_salt']:
       res_file += '_{}'.format(str(uuid.uuid4()))
@@ -385,3 +390,8 @@ class competition(imdb):
     else:
       self.config['use_salt'] = True
       self.config['cleanup'] = True
+
+
+if __name__ == '__main__':
+  # for unit testing
+  print('the imported imdb class is given in: ', newimdb.__file__)

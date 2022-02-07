@@ -7,9 +7,13 @@ from PIL import Image
 import torch
 from torch.utils.data.sampler import Sampler
 
-from pytorch_pipeline.model.utils.config import cfg
-from pytorch_pipeline.roi_data_layer.minibatch import get_minibatch
-from pytorch_pipeline.model.rpn.bbox_transform import bbox_transform_inv, clip_boxes
+from utils.config import cfg
+from roi_data_layer.minibatch import get_minibatch
+from rpn.bbox_transform import bbox_transform_inv, clip_boxes
+from dataset import build_rpn_targets
+
+from model.lib.bbox import generate_pyramid_anchors
+from config import Config
 
 import numpy as np
 import random
@@ -84,6 +88,14 @@ class roibatchLoader(data.Dataset):
             target_ratio = 1
 
         self.ratio_list_batch[left_idx:(right_idx+1)] = target_ratio
+        
+        config = Config()
+        
+        self.anchors = generate_pyramid_anchors(config.RPN_ANCHOR_SCALES,
+                                                config.RPN_ANCHOR_RATIOS,
+                                                config.BACKBONE_SHAPES,
+                                                config.BACKBONE_STRIDES,
+                                                config.RPN_ANCHOR_STRIDE)
 
   def __getitem__(self, index):
     if self.training:
@@ -246,7 +258,14 @@ class roibatchLoader(data.Dataset):
         # permute trim_data to adapt to downstream processing
         padding_data = padding_data.permute(2, 0, 1).contiguous()  # shape: (3, h, w)
         im_info = im_info.view(3)  # shape: (3,)
-        return padding_data, im_info, gt_boxes_padding, gt_masks_padding, num_boxes, blobs['img_id']
+######################################
+        gt_class_ids = np.ones(gt_masks_padding.shape[2], dtype=np.int32)
+        rpn_match, rpn_bbox = build_rpn_targets(data.shape, self.anchors, 
+                                                gt_class_ids, gt_boxes_padding, self.config)
+        return padding_data, gt_masks_padding, rpn_match, rpn_bbox, gt_class_ids, gt_boxes_padding, gt_masks_padding
+######################################
+        #return padding_data, im_info, gt_boxes_padding, gt_masks_padding, num_boxes, blobs['img_id']
+ #!! SHAPE of each: (2, 3, h, w), (2,3), (2, 20, 5), (2, h, w, 20), (2,), (2,) if arg.batch_size is set as 2!
     else:
         data = data.permute(0, 3, 1, 2).contiguous().view(3, data_height, data_width)
         im_info = im_info.view(3)

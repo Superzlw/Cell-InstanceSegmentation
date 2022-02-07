@@ -13,15 +13,15 @@ import numpy.random as npr
 import cv2
 import scipy
 import warnings
-from pytorch_pipeline.model.utils.config import cfg
-from pytorch_pipeline.model.utils.blob import prep_im_for_blob, im_list_to_blob
+from utils.config import cfg
+from utils.blob import prep_im_for_blob, im_list_to_blob
 import pdb
 
 
 def get_minibatch(imdb, roidb, num_classes):
     """
     Given a roidb, construct a minibatch - blobs sampled from it.
-    The returned blobs is a dict of keys - 'data', 'gt_boxes', 'im_info', 'img_id', 'gt_masks'
+    The returned blobs is a dict of keys - 'data', 'gt_boxes', 'im_info', 'img_id', 'gt_masks', 'area', 'iscrowd'
     """
     # XU: roidb is a list of a dict
     num_images = len(roidb)
@@ -109,8 +109,10 @@ def get_minibatch(imdb, roidb, num_classes):
     blobs['im_info'] = np.array(
       [[im_blob.shape[1], im_blob.shape[2], im_scales[0]]],
       dtype=np.float32)
-
+    #print(roidb[0].keys())
     blobs['img_id'] = roidb[0]['img_id']
+    blobs['area'] = roidb[0]['seg_areas']
+    blobs['iscrowd'] = 0
 
     return blobs
 
@@ -126,7 +128,8 @@ def _get_image_blob(roidb, scale_inds):
   im_scales = []
   for i in range(num_images):
     # XU: BGR as default color channels, so remain it to be compatible with config
-    im = cv2.imread(roidb[i]['image'])
+    #print(roidb)
+    im = cv2.imdecode(np.fromfile(roidb[i]['image'],dtype=np.uint8),-1)
     # im = imread(roidb[i]['image'])  # imageio.imread replaces scipy.imread and it outputs RGB by default as Pillow
 
     if len(im.shape) == 2:  # if im.shape==3, then (h, w, c)
